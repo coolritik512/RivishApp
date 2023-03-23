@@ -1,6 +1,6 @@
 import { news, whoToFollow } from '../lib/static'
 import { BiSearch } from 'react-icons/bi'
-
+import {searchForUserInSanity} from '../common/sanity'
 const style = {
   wrapper: `flex-[1] p-4`,
   searchBar: `flex items-center bg-[#243340] p-2 rounded-3xl`,
@@ -24,6 +24,15 @@ const style = {
 }
 
 function Widgets() {
+  
+  // async function searchUser(event:any){
+  //   const searchedUser=event.target.value;
+  //   if(searchedUser!='')
+  //   {
+  //     await searchForUserInSanity(searchedUser);
+  //   }
+  // }
+
   return (
     <div className={style.wrapper}>
       <div className={style.searchBar}>
@@ -32,6 +41,7 @@ function Widgets() {
           placeholder='Search Rivish'
           type='text'
           className={style.inputBox}
+          // onChange={searchUser}
         />
       </div>
       <div className={style.section}>

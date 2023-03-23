@@ -48,7 +48,8 @@ const ProfileHeader = () => {
 
   console.log('profile header');
   const params = new URLSearchParams(window.location.search);
-  const UserAddress = params.get("userName") ?? "";
+  const searchedUser= params.get('userName');
+
   const [userData, setUserData] = useState<UserData>({
     name: "",
     profileImage: "",
@@ -59,20 +60,22 @@ const ProfileHeader = () => {
     bio:''
   });
 
-  let { currentAccount, currentUser, getIndividualUserDetails } =
-    useContext(TwitterContext);
+  let { currentAccount, currentUser, getIndividualUserDetails } = useContext(TwitterContext);
 
   async function getUserDetails(UserAddress: string) {
-    //  await getIndividualUserDetails(UserAddress);
     initailiseUserData(await getIndividualUserDetails(UserAddress));
   }
 
-  // use effect for opening another person profile;
+  // use effect for intialising details with current user or another person profile;
   useEffect(() => {
-    if (UserAddress != "") {
-      getUserDetails(UserAddress);
+    // console.log('useEffect');
+    if (searchedUser !=null) {
+      getUserDetails(searchedUser);
     }
-  },[]);
+    if(searchedUser==null){
+      initailiseUserData(currentUser);
+    }
+  },[searchedUser]);
 
   function initailiseUserData(currentUser: any) {
     setUserData({
@@ -87,12 +90,6 @@ const ProfileHeader = () => {
   }
 
   const router = useRouter();
-
-  useEffect(() => {
-    if (!currentUser || UserAddress != "") return;
-
-    initailiseUserData(currentUser);
-  }, [currentUser]);
 
   return (
     <div className={style.wrapper}>

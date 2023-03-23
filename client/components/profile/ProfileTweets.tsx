@@ -51,7 +51,7 @@ const ProfileTweets = () => {
   
   console.log('profile tweet');
   const params = new URLSearchParams(window.location.search);
-  const UserAddress = (params.get("userName") ?? "");
+  const searchedUser = params.get("userName");
 
   const { currentUser,getIndividualUserDetails } = useContext(TwitterContext);
 
@@ -73,10 +73,13 @@ const ProfileTweets = () => {
   }
 
   useEffect(()=>{
-      if(UserAddress!=''){
-        getUserDetails(UserAddress);
-      }
-  },[]);
+    if (searchedUser !=null) {
+      getUserDetails(searchedUser);
+    }
+    if(searchedUser==null){
+      setTweetAndAuthor(currentUser);
+    }
+  },[searchedUser]);
 
 
   function setTweetAndAuthor(currentUser:any){
@@ -88,15 +91,6 @@ const ProfileTweets = () => {
       isProfileImageNft: currentUser.isProfileImageNft,
     });
   }
-
-
-
-  useEffect(() => {
-    if (!currentUser || UserAddress!='') return
-    setTweetAndAuthor(currentUser);
-  }, [currentUser]);
-
-  
   
   return (
     <div className={style.wrapper + 'overflow-scroll'}>

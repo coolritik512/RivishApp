@@ -4,9 +4,9 @@ import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 import Modal from "react-modal";
 import ProfileImageMinter from "../components/profile/mintingModal/ProfileImageMinter";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import { customStyles } from "../lib/constants";
-
+import { useEffect, useState } from "react";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white `,
@@ -17,14 +17,16 @@ const style = {
 declare let window: any;
 
 const profile = () => {
-  const router=useRouter();
+
+  console.log('profile component')
+  const router = useRouter();
   const params = new URLSearchParams(window.location.search);
-  const UserAddress = params.get("userId") ?? "";
+  const [searchedUser,setsearchedUser] = useState(params.get('userName'));
 
   return (
     <div className={style.wrapper}>
       <div className={style.content}>
-        {UserAddress ? (
+        {searchedUser !=null ? (
           <Sidebar initialSelectedIcon={""} />
         ) : (
           <Sidebar initialSelectedIcon={"Profile"} />
@@ -34,14 +36,14 @@ const profile = () => {
           <ProfileTweets />
         </div>
         <Widgets />
-        
+
         <Modal
-        isOpen={Boolean(router.query.mint)}
-        onRequestClose={() => router.back()}
-        style={customStyles}
-      >
-        <ProfileImageMinter />
-      </Modal>
+          isOpen={Boolean(router.query.mint)}
+          onRequestClose={() => router.back()}
+          style={customStyles}
+        >
+          <ProfileImageMinter />
+        </Modal>
       </div>
     </div>
   );

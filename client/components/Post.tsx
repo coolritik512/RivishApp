@@ -14,6 +14,8 @@ import { getEthereumContract } from "../common/contractfunction";
 import { getNftProfileImage, TwitterContext } from "../context/TwitterContext";
 import { Router, useRouter } from "next/router";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
+import Modal from "react-modal";
+import { customStyles } from "../lib/constants";
 
 const style = {
   wrapper: `flex-col p-3 border-b border-[#38444d] w-[full]`,
@@ -26,7 +28,7 @@ const style = {
   tweet: `my-2`,
   image: `rounded-3xl`,
   footer: `flex justify-between mr-28 mt-4 text-[#8899a6]`,
-  footerIcon: `rounded-full text-lg p-2`,
+  footerIcon: ` flex items-center gap-2 rounded-full text-lg p-2 relative`,
 };
 
 interface PostProps {
@@ -50,17 +52,38 @@ const Post = ({
   timestamp,
   isProfileImageNft,
 }: PostProps) => {
-
   const [hidden, sethidden] = useState<boolean>(true);
   const router = useRouter();
   const { PostDescription, PostId, Images } = text;
+  const [commentCount, setCommentCount] = useState(0);
+  const [likeCount, setLikeCount] = useState(0);
+
+  async function getCommentAndLikeCount(PostId: number) {
+    const contract = getEthereumContract();
+    const { _hex: comment } = await contract.getCommentCount(PostId);
+
+    setCommentCount(parseInt(comment));
+    const { _hex: like } = await contract.getLikesCount(PostId);
+    setLikeCount(parseInt(like));
+    console.log(like, comment);
+  }
+
+  useEffect(() => {
+    if(PostId!=null)
+    getCommentAndLikeCount(PostId);
+  }, [PostId]);
 
   return (
     <div className={style.wrapper} key={PostId}>
+      <ShortUserProfileComponent
+        displayName={displayName}
+        userName={userName}
+        isProfileImageNft={isProfileImageNft}
+        profileImageLink={avatar}
+        timestamp={timestamp}
+      />
 
-      <ShortUserProfileComponent displayName={displayName} userName={userName} isProfileImageNft={isProfileImageNft} profileImageLink={avatar} timestamp={timestamp} />
-
-      <div className={style.postMain} key={PostId+'post'}>
+      <div className={style.postMain} key={PostId + "post"}>
         <div>
           <div
             onClick={() => {
@@ -84,13 +107,18 @@ const Post = ({
                 sethidden(!hidden);
               }}
             />
-            {hidden ? null : (
+            <span className="">{commentCount}</span>
+
+            <Modal
+              isOpen={!hidden}
+              className={"max-w-fit top-48  translate-x-1/2 translate-y-1/2"}
+            >
               <CommentBox
                 hidden={false}
                 PostId={text.PostId}
                 sethidden={sethidden}
               />
-            )}
+            </Modal>
           </div>
           <div
             className={`${style.footerIcon} hover:text-[#03ba7c] hover:bg-[#1b393b]`}
@@ -101,8 +129,13 @@ const Post = ({
               }}
             />
           </div>
-          <LikeComponent PostId={text.PostId} />
-          <div
+
+
+            <LikeComponent PostId={text.PostId} likeCount={likeCount}/>
+
+          
+
+          {/* <div
             className={`${style.footerIcon} hover:text-[#1d9bf0] hover:bg-[#1e364a]`}
           >
             <FiShare
@@ -110,17 +143,17 @@ const Post = ({
                 e.preventDefault();
               }}
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
   );
 };
 
-function LikeComponent({ PostId }: { PostId: number }) {
+function LikeComponent({ PostId ,likeCount}: { PostId: number,likeCount:number }) {
   const { currentUser } = useContext(TwitterContext);
   // console.log('like componentn ',currentUser);
-  
+
   const [liked, setLiked] = useState(false);
 
   async function checkLiked(PostId: number) {
@@ -128,7 +161,7 @@ function LikeComponent({ PostId }: { PostId: number }) {
     // console.log(PostId);
     const contract = getEthereumContract();
     // console.log(currentUser.walletAddress);
-    if (currentUser.walletAddress && PostId!=undefined) {
+    if (currentUser.walletAddress && PostId != undefined) {
       const li = await contract.checkLiked(PostId, currentUser.walletAddress);
       setLiked(li);
     }
@@ -147,8 +180,7 @@ function LikeComponent({ PostId }: { PostId: number }) {
   }
   useEffect(() => {
     // console.
-    if(currentUser)
-    checkLiked(PostId);
+    if (currentUser) checkLiked(PostId);
   }, [currentUser]);
 
   return (
@@ -163,6 +195,7 @@ function LikeComponent({ PostId }: { PostId: number }) {
           LikePost(PostId);
         }}
       />
+      <span>{likeCount}</span>
     </div>
   );
 }
