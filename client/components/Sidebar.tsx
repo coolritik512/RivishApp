@@ -54,12 +54,14 @@ function Sidebar({ initialSelectedIcon }: SidebarProps) {
           setSelected={setSelected}
           redirect={"/"}
         />
-        {/* <SidebarOption
+        <SidebarOption
           Icon={selected === "Explore" ? FaHashtag : BiHash}
           text="Explore"
           isActive={Boolean(selected === "Explore")}
           setSelected={setSelected}
+          redirect={'/Search'}
         />
+        {/*
         <SidebarOption
           Icon={selected === "Notifications" ? FaBell : FiBell}
           text="Notifications"

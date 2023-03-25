@@ -27,7 +27,7 @@ export const getEthereumContract = () => {
 export async function getTweetDescription(tweetId:number) {
   const contract=getEthereumContract();
   const { PostDescription, Images ,PostId:{_hex:postid}} = await contract.getTweetInfo(tweetId);
-  console.log("tweetinfo ",PostDescription, Images ,postid);
+  // console.log("tweetinfo ",PostDescription, Images ,postid);
   return { PostDescription, Images,'PostId': parseInt(postid)};
 }
 

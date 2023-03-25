@@ -1,9 +1,13 @@
-import { news, whoToFollow } from '../lib/static'
-import { BiSearch } from 'react-icons/bi'
-import {searchForUserInSanity} from '../common/sanity'
+import { news, whoToFollow } from "../lib/static";
+import { BiSearch } from "react-icons/bi";
+import { searchForUserInSanity } from "../common/sanity";
+import { useRef, useState } from "react";
+import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
+import SearchBar from "./searchBar";
+
 const style = {
   wrapper: `flex-[1] p-4`,
-  searchBar: `flex items-center bg-[#243340] p-2 rounded-3xl`,
+  searchBar: `flex items-center bg-[#243340] p-2 rounded-3xl relative`,
   searchIcon: `text-[#8899a6] mr-2`,
   inputBox: `bg-transparent outline-none`,
   section: `bg-[#192734] my-6 rounded-xl overflow-hidden`,
@@ -21,29 +25,38 @@ const style = {
   name: `font-bold`,
   handle: `text-[#8899a6]`,
   followButton: `bg-white text-black px-3 py-1 rounded-full text-xs font-bold`,
-}
+};
 
 function Widgets() {
-  
-  // async function searchUser(event:any){
-  //   const searchedUser=event.target.value;
-  //   if(searchedUser!='')
-  //   {
-  //     await searchForUserInSanity(searchedUser);
-  //   }
-  // }
+  // console.log("widgets");
+
+  const [UserFound, setUserFound] = useState([]);
+
+  // console.log(UserFound);
+
+  const TimerOut = useRef<number>();
+
+  function debounce(event: any) {
+    const searchedUser = event.target.value;
+    if (TimerOut.current) {
+      clearTimeout(TimerOut.current);
+    }
+    const Timer = setTimeout(() => searchUser(searchedUser), 300);
+    TimerOut.current = parseInt("" + Timer);
+  }
+
+  async function searchUser(searchedUser: string) {
+    if (searchedUser != "") {
+      setUserFound(await searchForUserInSanity(searchedUser));
+    } else {
+      setUserFound([]);
+    }
+  }
 
   return (
     <div className={style.wrapper}>
-      <div className={style.searchBar}>
-        <BiSearch className={style.searchIcon} />
-        <input
-          placeholder='Search Rivish'
-          type='text'
-          className={style.inputBox}
-          // onChange={searchUser}
-        />
-      </div>
+      <SearchBar searchType="User"  />
+
       <div className={style.section}>
         <div className={style.title}>What's happening</div>
         {news.map((item, index) => (
@@ -63,6 +76,7 @@ function Widgets() {
         ))}
         <div className={style.showMore}>Show more</div>
       </div>
+      
       <div className={style.section}>
         <div className={style.title}>Who to follow</div>
         {whoToFollow.map((item, index) => (
@@ -84,7 +98,7 @@ function Widgets() {
         <div className={style.showMore}>Show more</div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Widgets
+export default Widgets;

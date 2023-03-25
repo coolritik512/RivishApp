@@ -42,7 +42,7 @@ const PostPage = () => {
   return (
     <div className={style.wrapper}>
       <div className={style.content}>
-        <Sidebar initialSelectedIcon={"Profile"} />
+        <Sidebar initialSelectedIcon={""} />
         <div className={style.mainContent}>
           {tweets.map((tweet: Tweet, index: number) => (
             <div>
@@ -57,14 +57,12 @@ const PostPage = () => {
                       )}...${tweet.author.walletAddress.slice(41)}`
                     : tweet.author.name
                 }
-                userName={`${tweet.author.walletAddress.slice(
-                  0,
-                  4
-                )}...${tweet.author.walletAddress.slice(41)}`}
+                userName={`${tweet.author.walletAddress}`}
                 text={tweet.tweet}
                 avatar={tweet.author.profileImage}
                 isProfileImageNft={tweet.author.isProfileImageNft}
                 timestamp={tweet.timestamp}
+                Title={tweet.Title}
               />
               <CommentComponent PostId={tweet.tweet.PostId} />
             </div>

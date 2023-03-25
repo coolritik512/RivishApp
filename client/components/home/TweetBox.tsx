@@ -24,6 +24,7 @@ const style = {
 };
 
 function TweetBox() {
+  const [Title,setTitle]=useState('');
   const [tweetMessage, setTweetMessage] = useState("");
   const { currentAccount, fetchTweets, currentUser } = useContext(TwitterContext);
   const [PostImage, setPostImage] = useState<File[] | null>();
@@ -34,11 +35,8 @@ function TweetBox() {
 
   async function saveToBlockchainAndGetId(PostMessage: string, ImagesCode: []) {
     const contract = getEthereumContract();
-
     console.log("save tweet to blockchain");
-    
     await contract.saveTweet(currentUser.walletAddress,PostMessage, ImagesCode);
-    
     return parseInt(await contract.PostId());
   }
 
@@ -51,7 +49,7 @@ function TweetBox() {
 
     const tweetIdOnBlockchain = await saveToBlockchainAndGetId(
       tweetMessage,
-      ImageCodes
+      ImageCodes,
     );
 
     const tweetIdString = "id" + tweetIdOnBlockchain;
@@ -66,6 +64,7 @@ function TweetBox() {
         _ref: currentAccount,
         _type: "reference",
       },
+      Title:Title,
     };
 
     await client.createIfNotExists(tweetDoc);
@@ -105,11 +104,14 @@ function TweetBox() {
 
       <div className={style.tweetBoxRight}>
         <form>
+          <input id="Title" onChange={(e)=>setTitle(e.target.value)} className="px-2 bg-transparent border-b outline-none  border-gray-500 w-full" placeholder="#something"></input>
           <textarea
             onChange={(e) => setTweetMessage(e.target.value)}
             value={tweetMessage}
             placeholder="What's happening?"
-            className={style.inputField}
+            rows={5}
+            className={`${style.inputField} border mt-2 border-gray-400 rounded-lg resize-none no-scrollbar`}
+            
           />
           <div className={style.formLowerContainer}>
             <div className={style.iconsContainer}>
@@ -127,6 +129,7 @@ function TweetBox() {
                 onClick={selectImage}
               ></BsCardImage>
             </div>
+
             <button
               type="submit"
               onClick={(event) => submitTweet(event)}

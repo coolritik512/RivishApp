@@ -118,10 +118,12 @@ export const TwitterProvider = ({ children }) => {
       *[_type == "tweets"]{
         "author": author->{name, walletAddress, profileImage, isProfileImageNft},
         tweet,
-        timestamp
+        timestamp,
+        Title
       }|order(timestamp desc)
     `
     const sanityResponse = await client.fetch(query);
+    console.log(sanityResponse);
     let tweetsList = await getTweetFromBlockchain(sanityResponse);
     // let tweetsList =[]
     setTweets(tweetsList);
@@ -131,7 +133,7 @@ export const TwitterProvider = ({ children }) => {
     let tweetsList = [];
     for (let item of sanityResponse ?? []) {
       const profileImageUrl = item?.author?.profileImage;
-
+      console.log('item',item);
       const newItem = {
         tweet: await getTweetDescription(item.tweet),
         timestamp: item.timestamp,
@@ -140,10 +142,12 @@ export const TwitterProvider = ({ children }) => {
           walletAddress: item?.author?.walletAddress,
           profileImage: profileImageUrl,
         },
+        Title:item.Title
       }
       if (item?.author?.isProfileImageNft) {
         newItem.author['isProfileImageNft'] = item.author.isProfileImageNft;
       }
+      console.log('newItem',newItem);
       tweetsList.push(newItem);
     }
     return tweetsList;
@@ -156,9 +160,9 @@ export const TwitterProvider = ({ children }) => {
    */
   const getCurrentUserDetails = async (userAccount = currentAccount) => {
     if (appStatus !== 'connected') return
-    console.log(typeof userAccount);
+    // console.log(typeof userAccount);
 
-    console.log('working on getCurrentUserDetails ');
+    // console.log('working on getCurrentUserDetails ');
     const query = `
       *[_type == "users" && _id == "${userAccount}"]{
         "tweets": tweets[]->{timestamp, tweet}|order(timestamp desc),
@@ -171,12 +175,12 @@ export const TwitterProvider = ({ children }) => {
       }
     `
 
-    console.log(query);
+    // console.log(query);
 
     const response = await client.fetch(query)
 
     const profileImageUri = response[0]?.profileImage;
-    console.log(response);
+    // console.log(response);
 
     setCurrentUser({
       tweets: await getTweetFromBlockchain(response[0]?.tweets),
@@ -224,8 +228,9 @@ export const TwitterProvider = ({ children }) => {
       *[_type == "tweets" &&   tweet == ${PostId}]{
         "author": author->{name, walletAddress, profileImage, isProfileImageNft},
         tweet,
-        timestamp
-      }`
+        timestamp,
+        Title
+      }`;
     const response = await client.fetch(query);
     return getTweetFromBlockchain(response);
   }

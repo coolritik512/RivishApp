@@ -19,10 +19,10 @@ const style = {
 };
 
 export default function ShortUserProfileComponent({profileImageLink,userName,isProfileImageNft,displayName,timestamp}:{
-    profileImageLink:string,userName:string,isProfileImageNft:Boolean|undefined,displayName:string,timestamp:string
+    profileImageLink:string,userName:string,isProfileImageNft:Boolean|undefined,displayName:string,timestamp?:string
 }){
 
-  console.log(profileImageLink);
+  // console.log(profileImageLink);
 
     const router=useRouter();
 
@@ -53,7 +53,7 @@ export default function ShortUserProfileComponent({profileImageLink,userName,isP
           @{`${userName.slice(
             0,
             4,
-          )}...${userName.slice(41)}`} • {format(new Date(timestamp).getTime())}
+          )}...${userName.slice(41)}`}  {timestamp==null ? null : `• ${format(new Date(timestamp).getTime())}`}
         </span>
       </span>
     </div>

@@ -110,6 +110,7 @@ const ProfileTweets = () => {
           avatar={author.profileImage}
           timestamp={tweet.timestamp}
           isProfileImageNft={author.isProfileImageNft}
+          Title={tweet.Title}
         />
       ))}
     </div>

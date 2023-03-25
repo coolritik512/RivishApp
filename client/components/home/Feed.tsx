@@ -17,6 +17,7 @@ export interface Tweet {
     Images: [string],
   }
   timestamp: string;
+  Tweet?:string
 }
 
 export interface TweetAuthor {
@@ -30,7 +31,7 @@ function Feed() {
   
   const { tweets,currentUser } = useContext(TwitterContext);
 
-  console.log(tweets);
+  // console.log(tweets);
 
   return (
     <div className={`${style.wrapper} no-scrollbar`}>
@@ -55,6 +56,7 @@ function Feed() {
           avatar={tweet.author.profileImage}
           isProfileImageNft={tweet.author.isProfileImageNft}
           timestamp={tweet.timestamp}
+          Title={tweet.Title}
         />
       ))}
     </div>

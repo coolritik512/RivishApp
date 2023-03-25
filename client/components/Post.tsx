@@ -42,6 +42,7 @@ interface PostProps {
   avatar: string;
   timestamp: string;
   isProfileImageNft: Boolean | undefined;
+  Title?:string;
 }
 
 const Post = ({
@@ -51,6 +52,7 @@ const Post = ({
   avatar,
   timestamp,
   isProfileImageNft,
+  Title
 }: PostProps) => {
   const [hidden, sethidden] = useState<boolean>(true);
   const router = useRouter();
@@ -65,7 +67,7 @@ const Post = ({
     setCommentCount(parseInt(comment));
     const { _hex: like } = await contract.getLikesCount(PostId);
     setLikeCount(parseInt(like));
-    console.log(like, comment);
+    // console.log(like, comment);
   }
 
   useEffect(() => {
@@ -91,6 +93,7 @@ const Post = ({
             }}
             className={style.tweet}
           >
+            {Title?<div className=" text-blue-300">#{Title}</div>:null}
             {PostDescription}
           </div>
           {Images?.length > 0 ? (
