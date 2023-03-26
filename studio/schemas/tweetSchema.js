@@ -9,6 +9,11 @@ export const tweetSchema = {
       title: 'Tweet',
     },
     {
+      name: 'RePost',
+      type: 'number',
+      title: 'RePost',
+    },
+    {
       name: 'Title',
       type: 'string',
       title: 'Title',

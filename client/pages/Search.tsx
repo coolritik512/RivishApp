@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import { Router, useRouter } from "next/router";
+import React, { useEffect, useRef, useState } from "react";
 import { searchForUserInSanity } from "../common/sanity";
 import Feed from "../components/home/Feed";
 import PostSearchResult from "../components/PostSearchResult";
@@ -45,10 +46,22 @@ function SearchFilterOptions({
     </button>
   );
 }
+declare let window: any;
 
 function ExploreComponent() {
+  const params = new URLSearchParams(window.location.search);
+  const Trending = params.get("Trending");
+
   const [selected, setSelected] = useState("User");
   const [searchedData, setSearchedData] = useState([]);
+
+  useEffect(() => {
+    if (Trending) {
+      setSelected("Post");
+    }
+  });
+
+  console.log(selected,Trending);
 
   function changeFilter(type: string) {
     setSelected(type);
@@ -58,7 +71,7 @@ function ExploreComponent() {
   console.log(searchedData);
   return (
     <div className="w-[50vw] border-[#38444d] border p-2 flex-[2] border-r border-l border-[#38444d] overflow-y-scroll relative no-scrollbar">
-      <SearchBar searchType={selected} setSearchedData={setSearchedData} />
+      <SearchBar Trending={Trending} searchType={selected} setSearchedData={setSearchedData} />
       <div className=" text-xl w-full flex  text-zinc-300 gap-2 mt-2 border-b border-gray-400 p-2">
         <SearchFilterOptions
           type="User"

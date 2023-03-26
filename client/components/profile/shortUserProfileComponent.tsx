@@ -50,10 +50,10 @@ export default function ShortUserProfileComponent({profileImageLink,userName,isP
           </span>
         )}
         <span className={style.handleAndTimeAgo}>
-          @{`${userName.slice(
+          @{`${userName?.slice(
             0,
             4,
-          )}...${userName.slice(41)}`}  {timestamp==null ? null : `• ${format(new Date(timestamp).getTime())}`}
+          )}...${userName?.slice(41)}`}  {timestamp==null ? null : `• ${format(new Date(timestamp).getTime())}`}
         </span>
       </span>
     </div>

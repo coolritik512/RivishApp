@@ -63,6 +63,7 @@ const PostPage = () => {
                 isProfileImageNft={tweet.author.isProfileImageNft}
                 timestamp={tweet.timestamp}
                 Title={tweet.Title}
+                RePost={tweet.RePost}
               />
               <CommentComponent PostId={tweet.tweet.PostId} />
             </div>

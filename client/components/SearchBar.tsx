@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { HTMLInputTypeAttribute, useEffect, useRef, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { searchForUserInSanity } from "../common/sanity";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
@@ -12,24 +12,35 @@ const style = {
 export default function SearchBar({
   searchType,
   setSearchedData,
+  Trending,
 }: {
   searchType: string;
   setSearchedData?: Function;
+  Trending?:string
 }) {
   const [UserFound, setUserFound] = useState([]);
-
-  console.log(UserFound);
+  const [TrendingSearch,setTrendingSearch] = useState(Trending);
 
   const TimerOut = useRef<number>();
 
   function debounce(event: any) {
-    const searchedUser = event.target.value;
+    let searchedUser = event.target.value;
+
     if (TimerOut.current) {
       clearTimeout(TimerOut.current);
     }
     const Timer = setTimeout(() => searchUser(searchedUser), 300);
     TimerOut.current = parseInt("" + Timer);
   }
+   const input = useRef<HTMLInputElement>();
+
+  useEffect(()=>{
+    console.log('effect')
+    if(Trending){
+      // searchType='Post';
+      searchUser(Trending);
+    }
+  },[searchType]);
 
   async function searchUser(searchedUser: string) {
     if (searchedUser != "") {
@@ -49,10 +60,11 @@ export default function SearchBar({
     <div className={style.searchBar}>
       <BiSearch className={style.searchIcon} />
       <input
+      ref={input}
         placeholder="Search Rivish"
-        type="text"
         className={style.inputBox}
         onChange={debounce}
+        defaultValue={Trending}
       />
       <UserSearchResult searchedData={UserFound} styleClass={'absolute mt-28'}/>
     </div>

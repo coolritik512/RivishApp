@@ -23,16 +23,22 @@ export const getEthereumContract = () => {
   return transactionContract;
 };
 
-
-export async function getTweetDescription(tweetId:number) {
-  const contract=getEthereumContract();
-  const { PostDescription, Images ,PostId:{_hex:postid}} = await contract.getTweetInfo(tweetId);
-  // console.log("tweetinfo ",PostDescription, Images ,postid);
-  return { PostDescription, Images,'PostId': parseInt(postid)};
+export async function getTweetDescription(tweetId: number) {
+  const contract = getEthereumContract();
+  const {
+    PostDescription,
+    Images,
+    PostId: { _hex: postid },
+    LikesCount: { _hex: likesCount },
+  } = await contract.getTweetInfo(tweetId);
+  return { PostDescription, Images, PostId: parseInt(postid)};
 }
 
-export async function saveComment(PostId:number , walletaddres:string , comment:string) {
-  const contract=getEthereumContract();
-  contract.saveComment(PostId,walletaddres,comment);
+export async function saveComment(
+  PostId: number,
+  walletaddres: string,
+  comment: string
+) {
+  const contract = getEthereumContract();
+  contract.saveComment(PostId, walletaddres, comment);
 }
-

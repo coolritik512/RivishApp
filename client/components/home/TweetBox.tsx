@@ -64,7 +64,7 @@ function TweetBox() {
         _ref: currentAccount,
         _type: "reference",
       },
-      Title:Title,
+      Title:Title.slice(1),
     };
 
     await client.createIfNotExists(tweetDoc);

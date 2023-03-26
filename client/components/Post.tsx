@@ -16,6 +16,7 @@ import { Router, useRouter } from "next/router";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 import Modal from "react-modal";
 import { customStyles } from "../lib/constants";
+import { client } from "../lib/client";
 
 const style = {
   wrapper: `flex-col p-3 border-b border-[#38444d] w-[full]`,
@@ -42,7 +43,8 @@ interface PostProps {
   avatar: string;
   timestamp: string;
   isProfileImageNft: Boolean | undefined;
-  Title?:string;
+  Title?: string;
+  RePost?: string;
 }
 
 const Post = ({
@@ -52,7 +54,8 @@ const Post = ({
   avatar,
   timestamp,
   isProfileImageNft,
-  Title
+  Title,
+  RePost
 }: PostProps) => {
   const [hidden, sethidden] = useState<boolean>(true);
   const router = useRouter();
@@ -71,8 +74,7 @@ const Post = ({
   }
 
   useEffect(() => {
-    if(PostId!=null)
-    getCommentAndLikeCount(PostId);
+    if (PostId != null) getCommentAndLikeCount(PostId);
   }, [PostId]);
 
   return (
@@ -93,7 +95,7 @@ const Post = ({
             }}
             className={style.tweet}
           >
-            {Title?<div className=" text-blue-300">#{Title}</div>:null}
+            {Title ? <div className=" text-blue-300">#{Title}</div> : null}
             {PostDescription}
           </div>
           {Images?.length > 0 ? (
@@ -123,47 +125,62 @@ const Post = ({
               />
             </Modal>
           </div>
-          <div
-            className={`${style.footerIcon} hover:text-[#03ba7c] hover:bg-[#1b393b]`}
-          >
-            <FaRetweet
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-            />
-          </div>
+          <RePostComponent PostId={text.PostId} ReTweet={RePost} />
 
-
-            <LikeComponent PostId={text.PostId} likeCount={likeCount}/>
-
-          
-
-          {/* <div
-            className={`${style.footerIcon} hover:text-[#1d9bf0] hover:bg-[#1e364a]`}
-          >
-            <FiShare
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-            />
-          </div> */}
+          <LikeComponent PostId={text.PostId} likeCount={likeCount} />
         </div>
       </div>
     </div>
   );
 };
 
-function LikeComponent({ PostId ,likeCount}: { PostId: number,likeCount:number }) {
+function RePostComponent({
+  PostId,
+  ReTweet,
+}: {
+  PostId: number;
+  ReTweet: number;
+}) {
+
+  const [RePostCount,setRePostCount]=useState(ReTweet??0);
+  async function RePostToSanity(PostId:number) {
+    await client.patch(`id${PostId}`).set({RePost:RePostCount+1}).commit();
+  }
+  async function RePost(PostId:number) {
+    const contract = getEthereumContract();
+    await contract.RePost(PostId);
+    RePostToSanity(PostId);
+    setRePostCount(RePostCount+1);
+  }
+
+  return (
+    <div
+      className={`${style.footerIcon} hover:text-[#03ba7c] hover:bg-[#1b393b]`}
+    >
+      <FaRetweet
+        onClick={(e) => {
+          e.preventDefault();
+          RePost(PostId);
+        }}
+      />
+      {RePostCount}
+    </div>
+  );
+}
+
+function LikeComponent({
+  PostId,
+  likeCount,
+}: {
+  PostId: number;
+  likeCount: number;
+}) {
   const { currentUser } = useContext(TwitterContext);
-  // console.log('like componentn ',currentUser);
 
   const [liked, setLiked] = useState(false);
 
   async function checkLiked(PostId: number) {
-    // console.log("check liked");
-    // console.log(PostId);
     const contract = getEthereumContract();
-    // console.log(currentUser.walletAddress);
     if (currentUser.walletAddress && PostId != undefined) {
       const li = await contract.checkLiked(PostId, currentUser.walletAddress);
       setLiked(li);
@@ -182,7 +199,6 @@ function LikeComponent({ PostId ,likeCount}: { PostId: number,likeCount:number }
     }
   }
   useEffect(() => {
-    // console.
     if (currentUser) checkLiked(PostId);
   }, [currentUser]);
 

@@ -55,6 +55,7 @@ export default function PostSearchResult({
                   timestamp={timestamp}
                   isProfileImageNft={author.isProfileImageNft}
                   Title={searchedData[index].Title}
+                  RePost={searchedData[index].RePost}
                 />
               );
             }

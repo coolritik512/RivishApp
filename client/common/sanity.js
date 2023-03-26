@@ -17,7 +17,8 @@ export async function searchForUserInSanity(userName, searchType) {
       "author": author->{name, walletAddress, profileImage, isProfileImageNft},
       tweet,
       timestamp,
-      Title
+      Title,
+      RePost
     }|order(timestamp desc)`;
 
   }

@@ -4,6 +4,7 @@ import { searchForUserInSanity } from "../common/sanity";
 import { useRef, useState } from "react";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 import SearchBar from "./searchBar";
+import WhatHappening from "./WhatHappening";
 
 const style = {
   wrapper: `flex-[1] p-4`,
@@ -31,8 +32,7 @@ function Widgets() {
   // console.log("widgets");
 
   const [UserFound, setUserFound] = useState([]);
-
-  // console.log(UserFound);
+  const [FamousPost,setFamousPost] = useState([])
 
   const TimerOut = useRef<number>();
 
@@ -57,7 +57,9 @@ function Widgets() {
     <div className={style.wrapper}>
       <SearchBar searchType="User"  />
 
-      <div className={style.section}>
+      <WhatHappening/>
+
+      {/* <div className={style.section}>
         <div className={style.title}>What's happening</div>
         {news.map((item, index) => (
           <div key={index} className={style.item}>
@@ -75,9 +77,9 @@ function Widgets() {
           </div>
         ))}
         <div className={style.showMore}>Show more</div>
-      </div>
+      </div> */}
       
-      <div className={style.section}>
+      {/* <div className={style.section}>
         <div className={style.title}>Who to follow</div>
         {whoToFollow.map((item, index) => (
           <div key={index} className={style.item}>
@@ -96,7 +98,7 @@ function Widgets() {
           </div>
         ))}
         <div className={style.showMore}>Show more</div>
-      </div>
+      </div> */}
     </div>
   );
 }
