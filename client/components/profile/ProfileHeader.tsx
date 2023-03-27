@@ -1,11 +1,15 @@
 import { useContext, useEffect, useState } from "react";
-import { getNftProfileImage, TwitterContext } from "../../context/TwitterContext";
+import {
+  getNftProfileImage,
+  TwitterContext,
+} from "../../context/TwitterContext";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import ProfileImageMinter from "./mintingModal/ProfileImageMinter";
 import { customStyles } from "../../lib/constants";
 import { FaRegEdit } from "react-icons/fa";
+import { getEthereumContract } from "../../common/contractfunction";
 
 Modal.setAppElement("#__next");
 
@@ -39,16 +43,15 @@ interface UserData {
   walletAddress: string;
   tweets: Array<Tweets>;
   isProfileImageNft: Boolean | undefined;
-  bio:string
+  bio: string;
 }
 
 declare let window: any;
 
 const ProfileHeader = () => {
-
-  console.log('profile header');
+  console.log("profile header");
   const params = new URLSearchParams(window.location.search);
-  const searchedUser= params.get('userName');
+  const searchedUser = params.get("userName");
 
   const [userData, setUserData] = useState<UserData>({
     name: "",
@@ -57,10 +60,11 @@ const ProfileHeader = () => {
     walletAddress: "",
     tweets: [],
     isProfileImageNft: undefined,
-    bio:''
+    bio: "",
   });
 
-  let { currentAccount, currentUser, getIndividualUserDetails } = useContext(TwitterContext);
+  let { currentAccount, currentUser, getIndividualUserDetails } =
+    useContext(TwitterContext);
 
   async function getUserDetails(UserAddress: string) {
     initailiseUserData(await getIndividualUserDetails(UserAddress));
@@ -69,13 +73,13 @@ const ProfileHeader = () => {
   // use effect for intialising details with current user or another person profile;
   useEffect(() => {
     // console.log('useEffect');
-    if (searchedUser !=null) {
+    if (searchedUser != null) {
       getUserDetails(searchedUser);
     }
-    if(searchedUser==null){
+    if (searchedUser == null) {
       initailiseUserData(currentUser);
     }
-  },[searchedUser]);
+  }, [searchedUser]);
 
   function initailiseUserData(currentUser: any) {
     setUserData({
@@ -85,11 +89,84 @@ const ProfileHeader = () => {
       coverImage: currentUser.coverImage,
       tweets: currentUser.tweets,
       isProfileImageNft: currentUser.isProfileImageNft,
-      bio:currentUser.bio
+      bio: currentUser.bio,
     });
   }
 
+  const [follow, setFollow] = useState(false);
+  const [follower, setFollower] = useState(0);
+  const [following, setFollowing] = useState(0);
+
   const router = useRouter();
+
+  async function followUser(
+    userAddressToFollow: string,
+    currentUserAddress: string
+  ) {
+    const contract = getEthereumContract();
+
+    console.log(userAddressToFollow, currentUserAddress);
+
+    if ((await checkFollow(currentUserAddress, userAddressToFollow)) == false) {
+      //
+      await contract.follow(userAddressToFollow, currentUserAddress);
+    } else {
+      await contract.unfollow(userAddressToFollow, currentUserAddress);
+    }
+  }
+
+  async function checkFollow(
+    currentUserAddress: string,
+    userAddressToFollow: string
+  ) {
+    const contract = getEthereumContract();
+    return await contract.checkFollow(currentUserAddress, userAddressToFollow);
+  }
+
+  async function updateFollow(
+    userAddressToFollow: string,
+    currentUserAddress: string
+  ) {
+    if (await checkFollow(userAddressToFollow, currentUserAddress)) {
+      setFollow(true);
+    } else {
+      setFollow(false);
+    }
+  }
+
+  async function getFollowersAndFollowing() {
+    const contract = getEthereumContract();
+    const {_hex:a}=await contract.getFollower(userData.walletAddress);
+    setFollower(parseInt(a));
+    const {_hex:b}=await contract.getFollowing(userData.walletAddress)
+    setFollowing(parseInt(b));
+  }
+
+  function openFollower(walletAddress:string,LinkedType:string){
+    router.push({pathname:'/LinkedUser',query:{userAddress:walletAddress ,LinkedType:LinkedType }})
+  }
+
+  useEffect(() => {
+    console.log(
+      currentAccount,
+      "\n",
+      userData.walletAddress,
+      "\n",
+      currentAccount
+    );
+    if (
+      currentAccount != userData.walletAddress &&
+      currentAccount &&
+      userData.walletAddress
+    ) {
+      updateFollow(currentAccount, userData.walletAddress);
+    }
+
+    if(userData.walletAddress!='' )
+    getFollowersAndFollowing();
+  }, [userData]);
+
+  
 
   return (
     <div className={style.wrapper}>
@@ -127,8 +204,16 @@ const ProfileHeader = () => {
             }
           />
         </div>
+        {currentAccount !== userData.walletAddress ? (
+          <div
+            className={style.editProfile}
+            onClick={() => followUser(userData.walletAddress, currentAccount)}
+          >
+            <span>{follow == false ? "follow" : "unfollow"}</span>
+          </div>
+        ) : null}
 
-        { currentAccount===userData.walletAddress?
+        {currentAccount === userData.walletAddress ? (
           <div
             className={style.editProfile}
             onClick={() =>
@@ -137,8 +222,8 @@ const ProfileHeader = () => {
           >
             <FaRegEdit />
             <span>Edit profile</span>
-          </div>:null
-        }
+          </div>
+        ) : null}
       </div>
 
       <div className={style.details}>
@@ -153,14 +238,15 @@ const ProfileHeader = () => {
             </>
           )}
         </div>
-        <div>{
-          userData.bio}
+        <div>{userData.bio}</div>
+
+        <div className="flex gap-2">
+          <span className=" hover:underline" onClick={()=>openFollower(userData.walletAddress,'following')}>following {following}</span>
+          <span className=" hover:underline" onClick={()=>openFollower(userData.walletAddress,'follower')}>follower {follower}</span>
         </div>
       </div>
       <div className={style.nav}>
         <div className={style.activeNav}>Tweets</div>
-        <div>Media</div>
-        <div>Likes</div>
       </div>
     </div>
   );

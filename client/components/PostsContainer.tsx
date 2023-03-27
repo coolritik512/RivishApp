@@ -12,9 +12,10 @@ export default function PostsContainer({
   function setAuthor(tweet: Tweet) {
     if (author) tweet["author"] = author;
   }
+  console.log(tweets);
   return (
     <div>
-      {tweets.map((tweet: Tweet, index: number) => {
+      { tweets.length> 0 ? tweets.map((tweet: Tweet, index: number) => {
         setAuthor(tweet);
         return <Post
           key={index}
@@ -27,14 +28,14 @@ export default function PostsContainer({
               : tweet?.author?.name
           }
           userName={tweet?.author?.walletAddress}
-          text={tweet.tweet}
-          avatar={tweet.author?.profileImage}
+          text={tweet?.tweet}
+          avatar={tweet?.author?.profileImage}
           isProfileImageNft={tweet.author?.isProfileImageNft}
           timestamp={tweet.timestamp}
           Title={tweet.Title}
           RePost={tweet.RePost}
         />;
-      })}
+      }):null}
     </div>
   );
 }

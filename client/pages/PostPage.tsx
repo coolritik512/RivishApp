@@ -27,10 +27,6 @@ const PostPage = () => {
 
   async function getPostDetails(PostId: number) {
     setTweet(await getTweetDetails(PostId));
-    // const contract = getEthereumContract();
-    // const PostInfo = await contract.getTweetInfo(PostId);
-
-    // console.log(PostInfo);
   }
 
   useEffect(() => {

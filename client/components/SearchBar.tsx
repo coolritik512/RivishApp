@@ -35,7 +35,7 @@ export default function SearchBar({
    const input = useRef<HTMLInputElement>();
 
   useEffect(()=>{
-    console.log('effect')
+    // console.log('effect')
     if(Trending){
       // searchType='Post';
       searchUser(Trending);

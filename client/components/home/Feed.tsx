@@ -1,9 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TwitterContext } from "../../context/TwitterContext";
 import TweetBox from "./TweetBox";
 import Post from "../Post";
 import { BsStars } from "react-icons/bs";
 import PostsContainer from "../PostsContainer";
+import { getEthereumContract } from "../../common/contractfunction";
+import { client } from "../../lib/client";
 
 const style = {
   wrapper: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll relative no-scrollbar`,
@@ -30,8 +32,62 @@ export interface TweetAuthor {
 }
 
 function Feed() {
-  
-  const { tweets,currentUser } = useContext(TwitterContext);
+  const { tweets,currentUser,getTweetDetails } = useContext(TwitterContext);
+
+  const [Posts,setPosts]= useState([]);
+
+  async function getRecentPostofUser(userAddress:string) {
+    console.log('getRecent post if user')
+    const query = `
+    *[_type == "users" && walletAddress == "${userAddress.toLowerCase()}"]{
+      "tweets": tweets[]->{tweet}|order(timestamp desc),
+    }`;
+
+    console.log(query);
+
+    const result = await client.fetch(query);
+    console.log(result);
+    let TweetDes=[];
+    // console.log(result[0].tweets[0].tweet);
+
+    if(result[0]?.tweets?.length>0){
+      // console.log(result[0].tweets[0].tweet);
+      TweetDes=await getTweetDetails(result[0].tweets[0].tweet);
+    }
+     
+    console.log(TweetDes);
+    return TweetDes.length>0?TweetDes[0]:null;
+  }
+
+
+  async function getFollowedUserPost() {
+    console.log('getFollowe Use post');
+
+    const contract = getEthereumContract();
+    // console.log(currentUser.walletAddress);
+    const followedUser = await contract.getFollowingDetails(currentUser.walletAddress);
+    const Tweets = [];
+    console.log(followedUser);
+    for (const useraddres of followedUser) {
+      const recentPost = await getRecentPostofUser(useraddres);
+      if(recentPost)
+      Tweets.push(recentPost);
+    }
+    let newPost = [...tweets,...Tweets];
+    console.log('newpost')
+    console.log(newPost);
+    console.log(tweets)
+    console.log(Tweets)
+
+    setPosts(newPost);
+  }
+
+  useEffect(()=>{
+    console.log('useEffect at feed');
+    if(currentUser?.walletAddress)
+    getFollowedUserPost();
+  },[currentUser?.walletAddress,tweets]);
+
 
   return (
     <div className={`${style.wrapper} no-scrollbar`}>
@@ -40,7 +96,7 @@ function Feed() {
         <BsStars />
       </div>
       <TweetBox />
-      <PostsContainer tweets={tweets}/>
+      <PostsContainer tweets={Posts}/>
     </div>
   );
 }

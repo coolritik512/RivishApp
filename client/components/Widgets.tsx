@@ -58,26 +58,6 @@ function Widgets() {
       <SearchBar searchType="User"  />
 
       <WhatHappening/>
-
-      {/* <div className={style.section}>
-        <div className={style.title}>What's happening</div>
-        {news.map((item, index) => (
-          <div key={index} className={style.item}>
-            <div className={style.newsItemLeft}>
-              <div className={style.newsItemCategory}>{item.category}</div>
-              <div className={style.newsItemTitle}>{item.title}</div>
-            </div>
-            <div className={style.newsItemRight}>
-              <img
-                src={item.image}
-                alt={item.category}
-                className={style.newsItemImage}
-              />
-            </div>
-          </div>
-        ))}
-        <div className={style.showMore}>Show more</div>
-      </div> */}
       
       {/* <div className={style.section}>
         <div className={style.title}>Who to follow</div>
