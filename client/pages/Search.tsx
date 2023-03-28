@@ -46,9 +46,10 @@ function SearchFilterOptions({
     </button>
   );
 }
-declare let window: any;
+// declare let window: any;
 
 function ExploreComponent() {
+  let window: any;
   const params = new URLSearchParams(window.location.search);
   const Trending = params.get("Trending")??'';
 
