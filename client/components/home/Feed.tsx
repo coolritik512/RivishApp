@@ -34,7 +34,7 @@ export interface TweetAuthor {
 function Feed() {
   const { tweets,currentUser,getTweetDetails } = useContext(TwitterContext);
 
-  const [Posts,setPosts]= useState([]);
+  const [Posts,setPosts]= useState<any>();
 
   async function getRecentPostofUser(userAddress:string) {
     console.log('getRecent post if user')
@@ -64,7 +64,6 @@ function Feed() {
     console.log('getFollowe Use post');
 
     const contract = getEthereumContract();
-    // console.log(currentUser.walletAddress);
     const followedUser = await contract.getFollowingDetails(currentUser.walletAddress);
     const Tweets = [];
     console.log(followedUser);
@@ -74,10 +73,10 @@ function Feed() {
       Tweets.push(recentPost);
     }
     let newPost = [...tweets,...Tweets];
-    console.log('newpost')
-    console.log(newPost);
-    console.log(tweets)
-    console.log(Tweets)
+    // console.log('newpost')
+    // console.log(newPost);
+    // console.log(tweets)
+    // console.log(Tweets)
 
     setPosts(newPost);
   }

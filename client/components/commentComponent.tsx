@@ -56,7 +56,7 @@ function SignleComment({
   key:number;
 }) {
   const { getIndividualUserDetails } = useContext(TwitterContext);
-  const [UserDetails, setUserDetails] = useState({});
+  const [UserDetails, setUserDetails] = useState<any>();
   async function getUserDetail() {
     const { isProfileImageNft, name, profileImage, walletAddress } =
       await getIndividualUserDetails(UserId);

@@ -33,18 +33,14 @@ const style = {
 };
 
 interface PostProps {
-  displayName: string;
-  userName: string;
-  text: {
-    PostDescription: string;
-    Images: [string];
-    PostId: number;
-  };
-  avatar: string;
-  timestamp: string;
+  displayName: string | undefined;
+  userName: string | undefined;
+  text: any;
+  avatar: string | undefined;
+  timestamp: string | undefined;
   isProfileImageNft: Boolean | undefined;
-  Title?: string;
-  RePost?: string;
+  Title?: string | undefined;
+  RePost: number | undefined;
 }
 
 const Post = ({
@@ -55,7 +51,7 @@ const Post = ({
   timestamp,
   isProfileImageNft,
   Title,
-  RePost
+  RePost,
 }: PostProps) => {
   const [hidden, sethidden] = useState<boolean>(true);
   const router = useRouter();
@@ -70,7 +66,6 @@ const Post = ({
     setCommentCount(parseInt(comment));
     const { _hex: like } = await contract.getLikesCount(PostId);
     setLikeCount(parseInt(like));
-    // console.log(like, comment);
   }
 
   useEffect(() => {
@@ -139,18 +134,20 @@ function RePostComponent({
   ReTweet,
 }: {
   PostId: number;
-  ReTweet: number;
+  ReTweet: number | undefined;
 }) {
-
-  const [RePostCount,setRePostCount]=useState(ReTweet??0);
-  async function RePostToSanity(PostId:number) {
-    await client.patch(`id${PostId}`).set({RePost:RePostCount+1}).commit();
+  const [RePostCount, setRePostCount] = useState(ReTweet ?? 0);
+  async function RePostToSanity(PostId: number) {
+    await client
+      .patch(`id${PostId}`)
+      .set({ RePost: RePostCount + 1 })
+      .commit();
   }
-  async function RePost(PostId:number) {
+  async function RePost(PostId: number) {
     const contract = getEthereumContract();
     await contract.RePost(PostId);
     RePostToSanity(PostId);
-    setRePostCount(RePostCount+1);
+    setRePostCount(RePostCount + 1);
   }
 
   return (
@@ -269,6 +266,7 @@ function PostImagesComponent({ images }: { images: [string] }) {
           {images.map((imageCode) => {
             return (
               <img
+                key={imageCode}
                 src={getNftProfileImage(imageCode)}
                 className="w-full h-full p-2"
               />
