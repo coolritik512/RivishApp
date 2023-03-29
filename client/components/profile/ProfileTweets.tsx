@@ -5,18 +5,9 @@ import { contractABI, contractAddress } from '../../lib/constants'
 import { Tweet, TweetAuthor } from '../home/Feed'
 import Post from '../Post'
 import PostsContainer from '../PostsContainer'
+import { window } from "../../common/windowObject";
 
-declare let window:any
-
-interface Metadata {
-  image: string;
-}
-
-let metamask: any;
-
-if (typeof window !== "undefined") {
-  metamask = window.ethereum;
-}
+// declare let window:any
 
 
 const style = {

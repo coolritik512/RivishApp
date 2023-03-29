@@ -10,8 +10,9 @@ import FinishedState from './FinishedState'
 import { pinJSONToIPFS, pinFileToIPFS } from '../../../lib/pinata'
 import { type } from 'os'
 import { uploadImagesToPintata } from '../../../common/pintatafunction'
+import { window } from "../../../common/windowObject";
 
-declare let window: any
+// declare let window: any
 
 let metamask: any
 
