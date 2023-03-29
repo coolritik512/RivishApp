@@ -7,14 +7,14 @@ import Post from "../components/Post";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 import { TwitterContext } from "../context/TwitterContext";
-import { window } from "../common/windowObject";
+// import { window } from "../common/windowObject";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,
   content: `w-full flex justify-between`,
   mainContent: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll no-scrollbar`,
 };
-// declare let window: any;
+declare let window: any;
 
 const PostPage = () => {
   // let window: any;

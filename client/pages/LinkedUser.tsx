@@ -5,13 +5,13 @@ import { searchForUserInSanity } from "../common/sanity";
 import Follw from "../components/Follw";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
-import { window } from "../common/windowObject";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,
   content: `w-full flex justify-between`,
   mainContent: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll no-scrollbar`,
 };
+ declare let window: any;
 
 export default function Follower() {
   // let window: any;

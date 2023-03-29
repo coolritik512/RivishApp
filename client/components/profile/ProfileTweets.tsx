@@ -5,9 +5,8 @@ import { contractABI, contractAddress } from '../../lib/constants'
 import { Tweet, TweetAuthor } from '../home/Feed'
 import Post from '../Post'
 import PostsContainer from '../PostsContainer'
-import { window } from "../../common/windowObject";
 
-// declare let window:any
+declare let window:any
 
 
 const style = {

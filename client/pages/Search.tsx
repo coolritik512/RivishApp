@@ -8,7 +8,6 @@ import SearchBar from "../components/SearchBar";
 import Sidebar from "../components/Sidebar";
 import UserSearchResult from "../components/userSearchResult";
 import Widgets from "../components/Widgets";
-import { window } from "../common/windowObject";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,
@@ -47,7 +46,7 @@ function SearchFilterOptions({
     </button>
   );
 }
-// declare let window: any;
+declare let window: any;
 
 function ExploreComponent() {
   const params = new URLSearchParams(window.location.search);

@@ -10,9 +10,9 @@ import FinishedState from './FinishedState'
 import { pinJSONToIPFS, pinFileToIPFS } from '../../../lib/pinata'
 import { type } from 'os'
 import { uploadImagesToPintata } from '../../../common/pintatafunction'
-import { window } from "../../../common/windowObject";
+import { getEthereumContract } from '../../../common/contractfunction'
 
-// declare let window: any
+declare let window: any
 
 let metamask: any
 
@@ -31,17 +31,6 @@ interface HeaderObject {
   value: string | undefined
 }
 
-const getEthereumContract = () => {
-  const provider = new ethers.providers.Web3Provider(metamask)
-  const signer = provider.getSigner()
-  const transactionContract = new ethers.Contract(
-    contractAddress,
-    contractABI,
-    signer,
-  )
-
-  return transactionContract
-}
 
 const createPinataRequestHeaders = (headers: Array<HeaderObject>) => {
   const requestHeaders: HeadersInit = new Headers()
