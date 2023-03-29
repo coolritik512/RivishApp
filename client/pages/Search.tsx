@@ -8,6 +8,7 @@ import SearchBar from "../components/SearchBar";
 import Sidebar from "../components/Sidebar";
 import UserSearchResult from "../components/userSearchResult";
 import Widgets from "../components/Widgets";
+import { window } from "../lib/constants";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,
@@ -49,7 +50,7 @@ function SearchFilterOptions({
 // declare let window: any;
 
 function ExploreComponent() {
-  let window: any;
+  // let window: any;
   const params = new URLSearchParams(window.location.search);
   const Trending = params.get("Trending")??'';
 

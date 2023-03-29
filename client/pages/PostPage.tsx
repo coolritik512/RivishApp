@@ -7,6 +7,7 @@ import Post from "../components/Post";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 import { TwitterContext } from "../context/TwitterContext";
+import { window } from "../lib/constants";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,
@@ -16,7 +17,7 @@ const style = {
 // declare let window: any;
 
 const PostPage = () => {
-  let window: any;
+  // let window: any;
   const params = new URLSearchParams(window.location.search);
   const PostId = parseInt(params.get("PostId") ?? "");
   console.log("ukku ", PostId);

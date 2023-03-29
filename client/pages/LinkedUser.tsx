@@ -5,6 +5,8 @@ import { searchForUserInSanity } from "../common/sanity";
 import Follw from "../components/Follw";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
+import { window } from "../lib/constants";
+
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,
   content: `w-full flex justify-between`,
@@ -12,7 +14,7 @@ const style = {
 };
 
 export default function Follower() {
-  let window: any;
+  // let window: any;
   const params = new URLSearchParams(window.location.search);
   const userAddress = params.get("userAddress");
   const LinkedType = params.get("LinkedType");
