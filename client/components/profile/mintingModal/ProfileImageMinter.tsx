@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import { TwitterContext } from '../../../context/TwitterContext'
 import { useRouter } from 'next/router'
 import { client } from '../../../lib/client'
-import { contractABI, contractAddress, window2 } from '../../../lib/constants'
+import { contractABI, contractAddress } from '../../../lib/constants'
 import { ethers } from 'ethers'
 import InitialState from './InitialState'
 import LoadingState from './LoadingState'
@@ -10,14 +10,7 @@ import FinishedState from './FinishedState'
 import { pinJSONToIPFS, pinFileToIPFS } from '../../../lib/pinata'
 import { type } from 'os'
 import { uploadImagesToPintata } from '../../../common/pintatafunction'
-
-declare let window: any
-
-let metamask: any
-
-if (typeof window !== 'undefined') {
-  metamask = window.ethereum
-}
+import { getEthereumContract, metamask } from '../../../common/contractfunction'
 
 interface Metadata {
   name: string
@@ -30,17 +23,6 @@ interface HeaderObject {
   value: string | undefined
 }
 
-const getEthereumContract = () => {
-  const provider = new ethers.providers.Web3Provider(metamask)
-  const signer = provider.getSigner()
-  const transactionContract = new ethers.Contract(
-    contractAddress,
-    contractABI,
-    signer,
-  )
-
-  return transactionContract
-}
 
 const createPinataRequestHeaders = (headers: Array<HeaderObject>) => {
   const requestHeaders: HeadersInit = new Headers()

@@ -7,7 +7,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import ProfileImageMinter from "./mintingModal/ProfileImageMinter";
-import { customStyles, window2 } from "../../lib/constants";
+import { customStyles, window2 as window } from "../../lib/constants";
 import { FaRegEdit } from "react-icons/fa";
 import { getEthereumContract } from "../../common/contractfunction";
 Modal.setAppElement("#__next");

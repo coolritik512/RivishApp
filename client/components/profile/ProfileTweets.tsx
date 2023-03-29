@@ -7,15 +7,6 @@ import Post from '../Post'
 import PostsContainer from '../PostsContainer'
 import { window2 as window } from '../../lib/constants'
 
-interface Metadata {
-  image: string;
-}
-
-let metamask: any;
-
-if (typeof window !== "undefined") {
-  metamask = window.ethereum;
-}
 
 const style = {
   wrapper: ` no-scrollbar`,
