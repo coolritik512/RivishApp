@@ -7,10 +7,9 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import ProfileImageMinter from "./mintingModal/ProfileImageMinter";
-import { customStyles } from "../../lib/constants";
+import { customStyles, window2 } from "../../lib/constants";
 import { FaRegEdit } from "react-icons/fa";
 import { getEthereumContract } from "../../common/contractfunction";
-
 Modal.setAppElement("#__next");
 
 const style = {
@@ -46,7 +45,6 @@ interface UserData {
   bio: string;
 }
 
-declare let window: any;
 
 const ProfileHeader = () => {
   console.log("profile header");

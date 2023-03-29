@@ -5,11 +5,11 @@ import { contractABI, contractAddress } from '../../lib/constants'
 import { Tweet, TweetAuthor } from '../home/Feed'
 import Post from '../Post'
 import PostsContainer from '../PostsContainer'
+import { window2 as window } from '../../lib/constants'
 
 interface Metadata {
   image: string;
 }
-declare let window: any;
 
 let metamask: any;
 
