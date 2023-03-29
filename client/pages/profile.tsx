@@ -7,7 +7,6 @@ import ProfileImageMinter from "../components/profile/mintingModal/ProfileImageM
 import { useRouter } from "next/router";
 import { customStyles } from "../lib/constants";
 import { useEffect, useState } from "react";
-import { window2 as window } from "../lib/constants";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white `,

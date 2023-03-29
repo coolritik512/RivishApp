@@ -16,7 +16,7 @@ export default function PostsContainer({
   return (
     <div>
       {tweets?.length > 0
-        ? tweets.map((tweet: Tweet, index: number) => {
+        ? tweets.map((tweet: any, index: number) => {
             setAuthor(tweet);
             return (
               <Post

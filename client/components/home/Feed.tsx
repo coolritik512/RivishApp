@@ -34,7 +34,7 @@ export interface TweetAuthor {
 function Feed() {
   const { tweets,currentUser,getTweetDetails } = useContext(TwitterContext);
 
-  const [Posts,setPosts]= useState([]);
+  const [Posts,setPosts]= useState<any>();
 
   async function getRecentPostofUser(userAddress:string) {
     console.log('getRecent post if user')
@@ -95,7 +95,7 @@ function Feed() {
         <div className={style.headerTitle}>Home</div>
         <BsStars />
       </div>
-      <TweetBox />
+      <TweetBox/>
       <PostsContainer tweets={Posts}/>
     </div>
   );

@@ -33,7 +33,7 @@ export default function CommentComponent({ PostId }: { PostId: any }) {
 
   return (
     <div className="flex-col p-2">
-      {commentArray.map(({ userID, commentDescription },index) => {
+      {commentArray.map(({ userID, commentDescription }, index) => {
         return (
           <SignleComment
             UserId={userID}
@@ -49,14 +49,14 @@ export default function CommentComponent({ PostId }: { PostId: any }) {
 function SignleComment({
   UserId,
   commentDescription,
-  key
+  key,
 }: {
   UserId: string;
   commentDescription: string;
-  key:number;
+  key: number;
 }) {
   const { getIndividualUserDetails } = useContext(TwitterContext);
-  const [UserDetails, setUserDetails] = useState({});
+  const [UserDetails, setUserDetails] = useState<any>();
   async function getUserDetail() {
     const { isProfileImageNft, name, profileImage, walletAddress } =
       await getIndividualUserDetails(UserId);
@@ -70,7 +70,6 @@ function SignleComment({
       profileImage,
     });
   }
-
 
   useEffect(() => {
     getUserDetail();

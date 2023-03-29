@@ -7,7 +7,6 @@ import Post from "../components/Post";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 import { TwitterContext } from "../context/TwitterContext";
-import { window2 as window } from "../lib/constants";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,
@@ -42,7 +41,7 @@ const PostPage = () => {
       <div className={style.content}>
         <Sidebar initialSelectedIcon={""} />
         <div className={style.mainContent}>
-          {tweets.map((tweet: Tweet, index: number) => (
+          {tweets.map((tweet: any, index: number) => (
             <div>
               {" "}
               <Post

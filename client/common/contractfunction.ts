@@ -5,7 +5,7 @@ interface Metadata {
   image: string;
 }
 
-declare let window: any;
+export declare let window: any;
 
 let metamask: any;
 

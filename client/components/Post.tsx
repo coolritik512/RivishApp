@@ -139,7 +139,7 @@ function RePostComponent({
   ReTweet,
 }: {
   PostId: number;
-  ReTweet: number;
+  ReTweet: any;
 }) {
 
   const [RePostCount,setRePostCount]=useState(ReTweet??0);

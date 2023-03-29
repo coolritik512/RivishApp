@@ -8,7 +8,7 @@ export default function PostSearchResult({
   searchedData: Array<any>;
 }) {
   const { getTweetDetails } = useContext(TwitterContext);
-  const [Posts, setPosts] = useState<[any]>();
+  const [Posts, setPosts] = useState<any>();
 
   async function loadPostFromBlockchain() {
     let PostArray = [];
@@ -38,7 +38,7 @@ export default function PostSearchResult({
               tweet: any;
               timestamp: any;
               Title: string;
-            },index) => {
+            },index:any) => {
               return (
                 <Post
                   displayName={

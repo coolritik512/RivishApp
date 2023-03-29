@@ -9,6 +9,8 @@ const style = {
   searchIcon: `text-[#8899a6] mr-2`,
   inputBox: `bg-transparent outline-none`,
 };
+
+
 export default function SearchBar({
   searchType,
   setSearchedData,
@@ -32,7 +34,7 @@ export default function SearchBar({
     const Timer = setTimeout(() => searchUser(searchedUser), 300);
     TimerOut.current = parseInt("" + Timer);
   }
-   const input = useRef<HTMLInputElement>();
+   const input = useRef<any>();
 
   useEffect(()=>{
     // console.log('effect')

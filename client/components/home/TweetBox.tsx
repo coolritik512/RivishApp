@@ -24,127 +24,147 @@ const style = {
 };
 
 function TweetBox() {
-  const [Title,setTitle]=useState('');
+  const [Title, setTitle] = useState("");
   const [tweetMessage, setTweetMessage] = useState("");
-  const { currentAccount, fetchTweets, currentUser } = useContext(TwitterContext);
+  const { currentAccount, fetchTweets, currentUser } =
+    useContext(TwitterContext);
   const [PostImage, setPostImage] = useState<File[] | null>();
 
-  function saveSelectedFiles(event: InputEvent) {
-    setPostImage([...event.target?.files]);
+  function saveSelectedFiles(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event?.target?.files?.length) {
+      const temp = [];
+      for (var i = 0; i < event?.target?.files?.length; i++) {
+        temp.push(event?.target?.files[i]);
+      }
+      setPostImage(temp);
+    }
   }
 
-  async function saveToBlockchainAndGetId(PostMessage: string, ImagesCode: []) {
-    const contract = getEthereumContract();
-    console.log("save tweet to blockchain");
-    await contract.saveTweet(currentUser.walletAddress,PostMessage, ImagesCode);
-    return parseInt(await contract.PostId());
-  }
+    async function saveToBlockchainAndGetId(
+      PostMessage: string,
+      ImagesCode: any
+    ) {
+      const contract = getEthereumContract();
+      console.log("save tweet to blockchain");
+      await contract.saveTweet(
+        currentUser.walletAddress,
+        PostMessage,
+        ImagesCode
+      );
+      return parseInt(await contract.PostId());
+    }
 
-  const submitTweet = async (event: any) => {
-    event.preventDefault();
+    const submitTweet = async (event: any) => {
+      event.preventDefault();
 
-    if (!tweetMessage) return;
+      if (!tweetMessage) return;
 
-    const ImageCodes = await uploadImagesToPintata(PostImage);
+      const ImageCodes = await uploadImagesToPintata(PostImage);
 
-    const tweetIdOnBlockchain = await saveToBlockchainAndGetId(
-      tweetMessage,
-      ImageCodes,
-    );
+      const tweetIdOnBlockchain = await saveToBlockchainAndGetId(
+        tweetMessage,
+        ImageCodes
+      );
 
-    const tweetIdString = "id" + tweetIdOnBlockchain;
+      const tweetIdString = "id" + tweetIdOnBlockchain;
 
-    const tweetDoc = {
-      _id: tweetIdString,
-      _type: "tweets",
-      tweet: tweetIdOnBlockchain,
-      timestamp: new Date(Date.now()).toISOString(),
-      author: {
-        _key: tweetIdString,
-        _ref: currentAccount,
-        _type: "reference",
-      },
-      Title:Title.slice(1),
-    };
-
-    await client.createIfNotExists(tweetDoc);
-
-    await client
-      .patch(currentAccount)
-      .setIfMissing({ tweets: [] })
-      .insert("after", "tweets[-1]", [
-        {
+      const tweetDoc = {
+        _id: tweetIdString,
+        _type: "tweets",
+        tweet: tweetIdOnBlockchain,
+        timestamp: new Date(Date.now()).toISOString(),
+        author: {
           _key: tweetIdString,
-          _ref: tweetIdString,
+          _ref: currentAccount,
           _type: "reference",
         },
-      ])
-      .commit();
-    setTweetMessage("");
-    await fetchTweets();
-    // window.location.reload()
-  };
+        Title: Title.slice(1),
+      };
 
-  const selectImage = () => {
-    document.getElementById("ImageSelectorForUpload")?.click();
-  };
+      await client.createIfNotExists(tweetDoc);
 
-  return (
-    <div className={style.wrapper}>
-      <div className={style.tweetBoxLeft}>
-        <img
-          src={'https://gateway.pinata.cloud/ipfs/'+currentUser.profileImage}
-          className={
-            currentUser.isProfileImageNft
-              ? `${style.profileImage} smallHex`
-              : style.profileImage
-          }
-        />
-      </div>
+      await client
+        .patch(currentAccount)
+        .setIfMissing({ tweets: [] })
+        .insert("after", "tweets[-1]", [
+          {
+            _key: tweetIdString,
+            _ref: tweetIdString,
+            _type: "reference",
+          },
+        ])
+        .commit();
+      setTweetMessage("");
+      await fetchTweets();
+      // window.location.reload()
+    };
 
-      <div className={style.tweetBoxRight}>
-        <form>
-          <input id="Title" onChange={(e)=>setTitle(e.target.value)} className="px-2 bg-transparent border-b outline-none  border-gray-500 w-full" placeholder="#something"></input>
-          <textarea
-            onChange={(e) => setTweetMessage(e.target.value)}
-            value={tweetMessage}
-            placeholder="What's happening?"
-            rows={5}
-            className={`${style.inputField} border mt-2 border-gray-400 rounded-lg resize-none no-scrollbar`}
-            
+    const selectImage = () => {
+      document.getElementById("ImageSelectorForUpload")?.click();
+    };
+
+    return (
+      <div className={style.wrapper}>
+        <div className={style.tweetBoxLeft}>
+          <img
+            src={
+              "https://gateway.pinata.cloud/ipfs/" + currentUser.profileImage
+            }
+            className={
+              currentUser.isProfileImageNft
+                ? `${style.profileImage} smallHex`
+                : style.profileImage
+            }
           />
-          <div className={style.formLowerContainer}>
-            <div className={style.iconsContainer}>
-              <input
-                type="file"
-                name="ImageSelectorForUpload"
-                id="ImageSelectorForUpload"
-                className="hidden"
-                multiple
-                accept=".jpg, .jpeg, .png"
-                onChange={(e) => saveSelectedFiles(e)}
-              />
-              <BsCardImage
-                className={style.icon}
-                onClick={selectImage}
-              ></BsCardImage>
-            </div>
+        </div>
 
-            <button
-              type="submit"
-              onClick={(event) => submitTweet(event)}
-              disabled={!tweetMessage}
-              className={`${style.submitGeneral} ${
-                tweetMessage ? style.activeSubmit : style.inactiveSubmit
-              }`}
-            >
-              Post
-            </button>
-          </div>
-        </form>
+        <div className={style.tweetBoxRight}>
+          <form>
+            <input
+              id="Title"
+              onChange={(e) => setTitle(e.target.value)}
+              className="px-2 bg-transparent border-b outline-none  border-gray-500 w-full"
+              placeholder="#something"
+            ></input>
+            <textarea
+              onChange={(e) => setTweetMessage(e.target.value)}
+              value={tweetMessage}
+              placeholder="What's happening?"
+              rows={5}
+              className={`${style.inputField} border mt-2 border-gray-400 rounded-lg resize-none no-scrollbar`}
+            />
+            <div className={style.formLowerContainer}>
+              <div className={style.iconsContainer}>
+                <input
+                  type="file"
+                  name="ImageSelectorForUpload"
+                  id="ImageSelectorForUpload"
+                  className="hidden"
+                  multiple
+                  accept=".jpg, .jpeg, .png"
+                  onChange={(e) => saveSelectedFiles(e)}
+                />
+                <BsCardImage
+                  className={style.icon}
+                  onClick={selectImage}
+                ></BsCardImage>
+              </div>
+
+              <button
+                type="submit"
+                onClick={(event) => submitTweet(event)}
+                disabled={!tweetMessage}
+                className={`${style.submitGeneral} ${
+                  tweetMessage ? style.activeSubmit : style.inactiveSubmit
+                }`}
+              >
+                Post
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
-  );
+    );
 }
 
 export default TweetBox;
