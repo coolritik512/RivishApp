@@ -5,7 +5,7 @@ import { searchForUserInSanity } from "../common/sanity";
 import Follw from "../components/Follw";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
-import { window } from "../lib/constants";
+import { window2 as window } from "../lib/constants";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,

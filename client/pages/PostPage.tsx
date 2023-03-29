@@ -7,7 +7,7 @@ import Post from "../components/Post";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 import { TwitterContext } from "../context/TwitterContext";
-import { window } from "../lib/constants";
+import { window2 as window } from "../lib/constants";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,

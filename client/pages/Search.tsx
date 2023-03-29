@@ -8,7 +8,7 @@ import SearchBar from "../components/SearchBar";
 import Sidebar from "../components/Sidebar";
 import UserSearchResult from "../components/userSearchResult";
 import Widgets from "../components/Widgets";
-import { window } from "../lib/constants";
+import { window2 as window } from "../lib/constants";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,

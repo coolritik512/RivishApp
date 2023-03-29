@@ -2,7 +2,10 @@ import ProfileImageMinterContractAbi from './ProfileImageNfts.json'
 
 export const contractABI = ProfileImageMinterContractAbi.abi
 export const contractAddress = '0x848d404e9bD70Cd3ef20ac6d562B87122c30519F'
-export const window=window;
+
+
+export const window2=window;
+
 export const customStyles = {
   content: {
     top: '30%',
