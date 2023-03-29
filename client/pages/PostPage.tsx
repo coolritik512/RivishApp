@@ -14,7 +14,7 @@ const style = {
   content: `w-full flex justify-between`,
   mainContent: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll no-scrollbar`,
 };
-// declare let window: any;
+declare let window: any;
 
 const PostPage = () => {
   // let window: any;

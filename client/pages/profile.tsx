@@ -15,7 +15,7 @@ const style = {
   mainContent: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll no-scrollbar`,
 };
 
-// declare let window: any;
+declare let window: any;
 
 const profile = () => {
   // let window: any;
