@@ -3,7 +3,7 @@ import { BiSearch } from "react-icons/bi";
 import { searchForUserInSanity } from "../common/sanity";
 import { useRef, useState } from "react";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
-import SearchBar from "./searchBar";
+import SearchBar from "./SearchBar";
 import WhatHappening from "./WhatHappening";
 
 const style = {
