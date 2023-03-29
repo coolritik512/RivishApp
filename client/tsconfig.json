@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/home/TweetBox.jsx", "common/pintatafunction.js", "components/profile/mintingModal/ProfileImageMinter.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/home/TweetBox.jsx", "common/pintatafunction.js"],
   "exclude": ["node_modules"]
 }

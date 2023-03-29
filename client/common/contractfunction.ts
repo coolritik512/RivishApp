@@ -7,7 +7,7 @@ interface Metadata {
 
 declare let window: any;
 
-export let metamask: any;
+let metamask: any;
 
 if (typeof window !== "undefined") {
   metamask = window.ethereum;
