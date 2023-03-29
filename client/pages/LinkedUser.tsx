@@ -19,7 +19,7 @@ export default function Follower() {
   const userAddress = params.get("userAddress");
   const LinkedType = params.get("LinkedType");
 
-  const [LinkedUserList, setLinkedUserList] = useState<any>();
+  const [LinkedUserList, setLinkedUserList] = useState([]);
 
   async function fetchAllFollower() {
     const contract = getEthereumContract();

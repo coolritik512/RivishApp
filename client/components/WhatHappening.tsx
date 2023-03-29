@@ -36,9 +36,8 @@ export default function WhatHappening() {
   return (
     <div className={style.section}>
       <div className={style.title}>What's happening</div>
-      {FamousPost.map((item :any , index) => (
+      {FamousPost.map((item, index) => (
         <div
-        key={index}
         className=" text-lg  w-full  bg-gray-600 p-2 border-b m-1 border-white rounded-xl" onClick={()=>openTheTrending(item.Title)}>#{item.Title}</div>
       ))}
     </div>

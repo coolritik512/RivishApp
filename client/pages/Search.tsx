@@ -50,7 +50,7 @@ declare let window: any;
 
 function ExploreComponent() {
   const params = new URLSearchParams(window.location.search);
-  const Trending = params.get("Trending")??'';
+  const Trending = params.get("Trending");
 
   const [selected, setSelected] = useState("User");
   const [searchedData, setSearchedData] = useState([]);
@@ -70,7 +70,7 @@ function ExploreComponent() {
 
   console.log(searchedData);
   return (
-    <div className="w-[50vw]  border p-2 flex-[2] border-r border-l border-[#38444d] overflow-y-scroll relative no-scrollbar">
+    <div className="w-[50vw] border-[#38444d] border p-2 flex-[2] border-r border-l border-[#38444d] overflow-y-scroll relative no-scrollbar">
       <SearchBar Trending={Trending} searchType={selected} setSearchedData={setSearchedData} />
       <div className=" text-xl w-full flex  text-zinc-300 gap-2 mt-2 border-b border-gray-400 p-2">
         <SearchFilterOptions

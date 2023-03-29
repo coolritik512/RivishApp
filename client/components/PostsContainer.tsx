@@ -15,31 +15,27 @@ export default function PostsContainer({
   console.log(tweets);
   return (
     <div>
-      {tweets?.length > 0
-        ? tweets.map((tweet: Tweet, index: number) => {
-            setAuthor(tweet);
-            return (
-              <Post
-                key={index}
-                displayName={
-                  tweet?.author?.name === "Unnamed"
-                    ? `${tweet.author.walletAddress.slice(
-                        0,
-                        4
-                      )}...${tweet.author.walletAddress.slice(41)}`
-                    : tweet?.author?.name
-                }
-                userName={tweet?.author?.walletAddress}
-                text={tweet?.tweet}
-                avatar={tweet?.author?.profileImage}
-                isProfileImageNft={tweet.author?.isProfileImageNft}
-                timestamp={tweet.timestamp}
-                Title={tweet.Title}
-                RePost={tweet.RePost}
-              />
-            );
-          })
-        : null}
+      { tweets.length> 0 ? tweets.map((tweet: Tweet, index: number) => {
+        setAuthor(tweet);
+        return <Post
+          key={index}
+          displayName={
+            tweet?.author?.name === "Unnamed"
+              ? `${tweet.author.walletAddress.slice(
+                  0,
+                  4
+                )}...${tweet.author.walletAddress.slice(41)}`
+              : tweet?.author?.name
+          }
+          userName={tweet?.author?.walletAddress}
+          text={tweet?.tweet}
+          avatar={tweet?.author?.profileImage}
+          isProfileImageNft={tweet.author?.isProfileImageNft}
+          timestamp={tweet.timestamp}
+          Title={tweet.Title}
+          RePost={tweet.RePost}
+        />;
+      }):null}
     </div>
   );
 }

@@ -1,9 +1,4 @@
-import React, {
-  HTMLInputTypeAttribute,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { HTMLInputTypeAttribute, useEffect, useRef, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { searchForUserInSanity } from "../common/sanity";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
@@ -19,12 +14,12 @@ export default function SearchBar({
   setSearchedData,
   Trending,
 }: {
-  searchType: null | undefined | string;
+  searchType: string;
   setSearchedData?: Function;
-  Trending?: string;
+  Trending?:string
 }) {
   const [UserFound, setUserFound] = useState([]);
-  const [TrendingSearch, setTrendingSearch] = useState(Trending);
+  const [TrendingSearch,setTrendingSearch] = useState(Trending);
 
   const TimerOut = useRef<number>();
 
@@ -37,15 +32,15 @@ export default function SearchBar({
     const Timer = setTimeout(() => searchUser(searchedUser), 300);
     TimerOut.current = parseInt("" + Timer);
   }
-  const input = useRef<any>();
+   const input = useRef<HTMLInputElement>();
 
-  useEffect(() => {
+  useEffect(()=>{
     // console.log('effect')
-    if (Trending) {
+    if(Trending){
       // searchType='Post';
       searchUser(Trending);
     }
-  }, [searchType]);
+  },[searchType]);
 
   async function searchUser(searchedUser: string) {
     if (searchedUser != "") {
@@ -57,23 +52,21 @@ export default function SearchBar({
       }
     } else {
       setUserFound([]);
-      if (setSearchedData) setSearchedData([]);
+      if(setSearchedData)
+      setSearchedData([]);
     }
   }
   return (
     <div className={style.searchBar}>
       <BiSearch className={style.searchIcon} />
       <input
-        ref={input}
+      ref={input}
         placeholder="Search Rivish"
         className={style.inputBox}
         onChange={debounce}
         defaultValue={Trending}
       />
-      <UserSearchResult
-        searchedData={UserFound}
-        styleClass={"absolute mt-28"}
-      />
+      <UserSearchResult searchedData={UserFound} styleClass={'absolute mt-28'}/>
     </div>
   );
 }

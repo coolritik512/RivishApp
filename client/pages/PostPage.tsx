@@ -42,7 +42,7 @@ const PostPage = () => {
       <div className={style.content}>
         <Sidebar initialSelectedIcon={""} />
         <div className={style.mainContent}>
-          {tweets.map((tweet: any, index: number) => (
+          {tweets.map((tweet: Tweet, index: number) => (
             <div>
               {" "}
               <Post

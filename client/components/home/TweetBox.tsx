@@ -24,31 +24,19 @@ const style = {
 };
 
 function TweetBox() {
-  const [Title, setTitle] = useState("");
+  const [Title,setTitle]=useState('');
   const [tweetMessage, setTweetMessage] = useState("");
-  const { currentAccount, fetchTweets, currentUser } =
-    useContext(TwitterContext);
+  const { currentAccount, fetchTweets, currentUser } = useContext(TwitterContext);
   const [PostImage, setPostImage] = useState<File[] | null>();
 
-  function saveSelectedFiles(event: React.ChangeEvent<HTMLInputElement>) {
-    if (event?.target?.files?.length) {
-      const temp=[];
-      for (var i = 0; i < event?.target?.files?.length; i++) {
-        temp.push(event?.target?.files[i]);
-      }
-      setPostImage(temp);
-    }
-
+  function saveSelectedFiles(event: InputEvent) {
+    setPostImage([...event.target?.files]);
   }
 
-  async function saveToBlockchainAndGetId(PostMessage: string, ImagesCode:any) {
+  async function saveToBlockchainAndGetId(PostMessage: string, ImagesCode: []) {
     const contract = getEthereumContract();
     console.log("save tweet to blockchain");
-    await contract.saveTweet(
-      currentUser.walletAddress,
-      PostMessage,
-      ImagesCode
-    );
+    await contract.saveTweet(currentUser.walletAddress,PostMessage, ImagesCode);
     return parseInt(await contract.PostId());
   }
 
@@ -61,7 +49,7 @@ function TweetBox() {
 
     const tweetIdOnBlockchain = await saveToBlockchainAndGetId(
       tweetMessage,
-      ImageCodes
+      ImageCodes,
     );
 
     const tweetIdString = "id" + tweetIdOnBlockchain;
@@ -76,7 +64,7 @@ function TweetBox() {
         _ref: currentAccount,
         _type: "reference",
       },
-      Title: Title.slice(1),
+      Title:Title.slice(1),
     };
 
     await client.createIfNotExists(tweetDoc);
@@ -105,7 +93,7 @@ function TweetBox() {
     <div className={style.wrapper}>
       <div className={style.tweetBoxLeft}>
         <img
-          src={"https://gateway.pinata.cloud/ipfs/" + currentUser.profileImage}
+          src={'https://gateway.pinata.cloud/ipfs/'+currentUser.profileImage}
           className={
             currentUser.isProfileImageNft
               ? `${style.profileImage} smallHex`
@@ -116,18 +104,14 @@ function TweetBox() {
 
       <div className={style.tweetBoxRight}>
         <form>
-          <input
-            id="Title"
-            onChange={(e) => setTitle(e.target.value)}
-            className="px-2 bg-transparent border-b outline-none  border-gray-500 w-full"
-            placeholder="#something"
-          ></input>
+          <input id="Title" onChange={(e)=>setTitle(e.target.value)} className="px-2 bg-transparent border-b outline-none  border-gray-500 w-full" placeholder="#something"></input>
           <textarea
             onChange={(e) => setTweetMessage(e.target.value)}
             value={tweetMessage}
             placeholder="What's happening?"
             rows={5}
             className={`${style.inputField} border mt-2 border-gray-400 rounded-lg resize-none no-scrollbar`}
+            
           />
           <div className={style.formLowerContainer}>
             <div className={style.iconsContainer}>

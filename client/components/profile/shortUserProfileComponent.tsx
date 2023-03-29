@@ -1,4 +1,4 @@
-import { Router, useRouter } from "next/router";
+import { Router,useRouter } from "next/router";
 import React from "react";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import { format } from "timeago.js";
@@ -18,26 +18,17 @@ const style = {
   footerIcon: `rounded-full text-lg p-2`,
 };
 
-export default function ShortUserProfileComponent({
-  profileImageLink,
-  userName,
-  isProfileImageNft,
-  displayName,
-  timestamp,
-}: {
-  profileImageLink: string| undefined;
-  userName: string| undefined;
-  isProfileImageNft: Boolean | undefined;
-  displayName: string| undefined;
-  timestamp?: string| undefined;
-}) {
+export default function ShortUserProfileComponent({profileImageLink,userName,isProfileImageNft,displayName,timestamp}:{
+    profileImageLink:string,userName:string,isProfileImageNft:Boolean|undefined,displayName:string,timestamp?:string
+}){
+
   // console.log(profileImageLink);
 
-  const router = useRouter();
+    const router=useRouter();
 
-  function openUserProfile() {
-    router.push({ pathname: `/profile`, query: { userName } });
-  }
+    function openUserProfile(){
+        router.push({ pathname: `/profile`, query: { userName } });
+    }
   return (
     <div className={"flex gap-2"}>
       <div>
@@ -52,22 +43,17 @@ export default function ShortUserProfileComponent({
         />
       </div>
       <span className={style.headerDetails}>
-        <span
-          className={style.name + " hover:underline cursor-pointer"}
-          onClick={openUserProfile}
-        >
-          {displayName}
-        </span>
+        <span className={style.name + ' hover:underline cursor-pointer'} onClick={openUserProfile} >{displayName}</span>
         {isProfileImageNft && (
           <span className={style.verified}>
             <BsFillPatchCheckFill />
           </span>
         )}
         <span className={style.handleAndTimeAgo}>
-          @{`${userName?.slice(0, 4)}...${userName?.slice(41)}`}{" "}
-          {timestamp == null
-            ? null
-            : `• ${format(new Date(timestamp).getTime())}`}
+          @{`${userName?.slice(
+            0,
+            4,
+          )}...${userName?.slice(41)}`}  {timestamp==null ? null : `• ${format(new Date(timestamp).getTime())}`}
         </span>
       </span>
     </div>
