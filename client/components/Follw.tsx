@@ -1,4 +1,4 @@
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import React from "react";
 import { BsArrowLeftShort } from "react-icons/bs";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
@@ -18,7 +18,7 @@ export default function Follw({
   UserList: Array<any>;
   LinkedType: string | null;
 }) {
-    const router=useRouter();
+  const router = useRouter();
   console.log(UserList);
   return (
     <div className="flex flex-col gap-2 p-2">

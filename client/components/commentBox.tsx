@@ -1,5 +1,5 @@
-import React, { FormEvent, useContext, useEffect } from "react";
-import { saveComment, getEthereumContract } from "../common/contractfunction";
+import React, { FormEvent, useContext } from "react";
+import {  getEthereumContract } from "../common/contractfunction";
 import { TwitterContext } from "../context/TwitterContext";
 
 type commentBoxPropType = {

@@ -1,11 +1,7 @@
-import { useState, useContext, InputHTMLAttributes } from "react";
+import { useState, useContext } from "react";
 import { TwitterContext } from "../../context/TwitterContext";
-import { BsCardImage, BsEmojiSmile } from "react-icons/bs";
+import { BsCardImage } from "react-icons/bs";
 import { client } from "../../lib/client";
-import { pinFileToIPFS, pinJSONToIPFS } from "../../lib/pinata";
-import { contractABI, contractAddress } from "../../lib/constants";
-import { ethers } from "ethers";
-import { fileURLToPath } from "url";
 import { getEthereumContract } from "../../common/contractfunction";
 import { uploadImagesToPintata } from "../../common/pintatafunction";
 

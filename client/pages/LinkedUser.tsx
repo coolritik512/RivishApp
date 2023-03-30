@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { getEthereumContract } from "../common/contractfunction";
 import { searchForUserInSanity } from "../common/sanity";
@@ -11,10 +10,10 @@ const style = {
   content: `w-full flex justify-between`,
   mainContent: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll no-scrollbar`,
 };
- declare let window: any;
+// declare let window: any;
 
 export default function Follower() {
-  // let window: any;
+  let window: any;
   const params = new URLSearchParams(window.location.search);
   const userAddress = params.get("userAddress");
   const LinkedType = params.get("LinkedType");
@@ -26,7 +25,7 @@ export default function Follower() {
     const followerAddress = await contract.getFollowerDetails(userAddress);
     let temp = [];
     for (const useraddress of followerAddress) {
-      const res=await searchForUserInSanity(useraddress, "User")
+      const res = await searchForUserInSanity(useraddress, "User");
       temp.push(res[0]);
     }
     setLinkedUserList(temp);
@@ -37,14 +36,14 @@ export default function Follower() {
     const followerAddress = await contract.getFollowingDetails(userAddress);
     let temp = [];
     for (const useraddress of followerAddress) {
-      const res=await searchForUserInSanity(useraddress, "User")
+      const res = await searchForUserInSanity(useraddress, "User");
       temp.push(res[0]);
     }
     setLinkedUserList(temp);
   }
 
   useEffect(() => {
-    console.log(LinkedType,userAddress);
+    console.log(LinkedType, userAddress);
     if (LinkedType == "follower") {
       fetchAllFollower();
     } else {

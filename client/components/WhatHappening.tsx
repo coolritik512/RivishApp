@@ -9,7 +9,6 @@ const style = {
   section: `bg-[#192734] my-6 rounded-xl overflow-hidden`,
   title: `p-2 font-bold text-lg`,
   showMore: `p-2 text-[#1d9bf0] text-sm cursor-pointer hover:bg-[#22303c]`,
-
 };
 export default function WhatHappening() {
   const [FamousPost, setFamousPost] = useState([]);
@@ -38,6 +37,7 @@ export default function WhatHappening() {
       <div className={style.title}>What's happening</div>
       {FamousPost.map((item:any, index) => (
         <div
+        key={index}
         className=" text-lg  w-full  bg-gray-600 p-2 border-b m-1 border-white rounded-xl" onClick={()=>openTheTrending(item.Title)}>#{item.Title}</div>
       ))}
     </div>
