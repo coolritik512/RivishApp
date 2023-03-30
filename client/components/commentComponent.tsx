@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { BsFillPatchCheckFill } from "react-icons/bs";
 import { getEthereumContract } from "../common/contractfunction";
 import { TwitterContext } from "../context/TwitterContext";
+import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 
 const style = {
   wrapper: `flex p-3 border-b border-[#38444d] w-[full]`,
@@ -18,18 +18,17 @@ const style = {
 };
 
 export default function CommentComponent({ PostId }: { PostId: any }) {
-  const { getCurrentUserDetails } = useContext(TwitterContext);
   const [commentArray, setcommentArray] = useState([]);
+
   async function getCommentFromBlockchain(PostId: number) {
     const contract = getEthereumContract();
     const commentInfo = await contract.getCommentInfo(PostId);
-
     setcommentArray(commentInfo);
   }
 
   useEffect(() => {
     getCommentFromBlockchain(PostId);
-  });
+  }, []);
 
   return (
     <div className="flex-col p-2">
@@ -38,7 +37,7 @@ export default function CommentComponent({ PostId }: { PostId: any }) {
           <SignleComment
             UserId={userID}
             commentDescription={commentDescription}
-            key={index}
+            index={index}
           />
         );
       })}
@@ -49,19 +48,20 @@ export default function CommentComponent({ PostId }: { PostId: any }) {
 function SignleComment({
   UserId,
   commentDescription,
-  key,
+  index,
 }: {
   UserId: string;
   commentDescription: string;
-  key: number;
+  index: number;
 }) {
   const { getIndividualUserDetails } = useContext(TwitterContext);
   const [UserDetails, setUserDetails] = useState<any>();
+
   async function getUserDetail() {
     const { isProfileImageNft, name, profileImage, walletAddress } =
       await getIndividualUserDetails(UserId);
     setUserDetails({
-      userName: name,
+      userName: walletAddress,
       displayName:
         name === "Unnamed"
           ? `${walletAddress.slice(0, 4)}...${walletAddress.slice(41)}`
@@ -76,30 +76,15 @@ function SignleComment({
   }, []);
 
   return (
-    <div className="flex-col  border-b m-2" key={key}>
+    <div className="flex-col  border-b m-2" key={index}>
       <div className="flex gap-2">
-        <img
-          src={UserDetails?.profileImage}
-          alt={UserDetails?.userName}
-          className={
-            UserDetails.isProfileImageNft
-              ? `${style.profileImage} smallHex`
-              : style.profileImage
-          }
+        <ShortUserProfileComponent
+          userName={UserDetails?.userName}
+          displayName={UserDetails?.displayName}
+          isProfileImageNft={UserDetails?.isProfileImageNft}
+          profileImageLink={UserDetails?.profileImage}
         />
-        <span className={style.headerDetails}>
-          <span className={style.name}>{UserDetails.displayName}</span>
-          {UserDetails.isProfileImageNft && (
-            <span className={style.verified}>
-              <BsFillPatchCheckFill />
-            </span>
-          )}
-          <span className={style.handleAndTimeAgo}>
-            @{UserDetails.userName}
-          </span>
-        </span>
       </div>
-
       <div className="m-2">{commentDescription}</div>
     </div>
   );

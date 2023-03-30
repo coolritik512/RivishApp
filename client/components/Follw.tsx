@@ -1,4 +1,4 @@
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import React from "react";
 import { BsArrowLeftShort } from "react-icons/bs";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
@@ -18,29 +18,31 @@ export default function Follw({
   UserList: Array<any>;
   LinkedType: string | null;
 }) {
-    const router=useRouter();
-  console.log(UserList);
+  const router = useRouter();
   return (
     <div className="flex flex-col gap-2 p-2">
       <div className={style.header}>
-        <div onClick={() => router.push("/")} className={style.backButton}>
+        <div onClick={() => router.back()} className={style.backButton}>
           <BsArrowLeftShort />
         </div>
         <div className={style.details}>
           <div className={style.secondary}>{LinkedType?.toUpperCase()}</div>
         </div>
       </div>
-      {UserList.map((user) => {
-        const { profileImage, walletAddress, isProfileImageNft, name } = user;
-        return (
-          <ShortUserProfileComponent
-            profileImageLink={profileImage}
-            userName={walletAddress}
-            isProfileImageNft={isProfileImageNft}
-            displayName={name}
-          />
-        );
-      })}
+      {UserList
+        ? UserList.map((user) => {
+            const { profileImage, walletAddress, isProfileImageNft, name } =
+              user;
+            return (
+              <ShortUserProfileComponent
+                profileImageLink={profileImage}
+                userName={walletAddress}
+                isProfileImageNft={isProfileImageNft}
+                displayName={name}
+              />
+            );
+          })
+        : null}
     </div>
   );
 }

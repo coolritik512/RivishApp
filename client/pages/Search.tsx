@@ -1,9 +1,5 @@
-import { Router, useRouter } from "next/router";
-import React, { useEffect, useRef, useState } from "react";
-import { searchForUserInSanity } from "../common/sanity";
-import Feed from "../components/home/Feed";
+import React, { useEffect, useState } from "react";
 import PostSearchResult from "../components/PostSearchResult";
-import ShortUserProfileComponent from "../components/profile/shortUserProfileComponent";
 import SearchBar from "../components/SearchBar";
 import Sidebar from "../components/Sidebar";
 import UserSearchResult from "../components/userSearchResult";
@@ -70,7 +66,7 @@ function ExploreComponent() {
 
   console.log(searchedData);
   return (
-    <div className="w-[50vw] border-[#38444d] border p-2 flex-[2] border-r border-l border-[#38444d] overflow-y-scroll relative no-scrollbar">
+    <div className="w-[50vw] border p-2 flex-[2] border-r border-l border-[#38444d] overflow-y-scroll relative no-scrollbar">
       <SearchBar Trending={Trending} searchType={selected} setSearchedData={setSearchedData} />
       <div className=" text-xl w-full flex  text-zinc-300 gap-2 mt-2 border-b border-gray-400 p-2">
         <SearchFilterOptions
@@ -84,6 +80,7 @@ function ExploreComponent() {
           setSelected={changeFilter}
         />
       </div>
+      
       {selected == "User" ? (
         searchedData.length > 0 ? (
           <UserSearchResult searchedData={searchedData} styleClass={"mt-2"} />

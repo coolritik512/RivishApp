@@ -15,10 +15,10 @@ export default function PostSearchResult({
     for (const Post of searchedData) {
       PostArray.push(...(await getTweetDetails(Post.tweet)));
     }
-    console.log(PostArray);
+    // console.log(PostArray);
     setPosts(PostArray);
   }
-  console.log(Posts);
+  // console.log(Posts);
   useEffect(() => {
     loadPostFromBlockchain();
   }, []);
@@ -28,35 +28,40 @@ export default function PostSearchResult({
       {Posts == null
         ? null
         : Posts.map(
-            ({
-              author,
-              tweet,
-              timestamp,
-              Title,
-            }: {
-              author: any;
-              tweet: any;
-              timestamp: any;
-              Title: string;
-            },index:any) => {
+            (
+              {
+                author,
+                tweet,
+                timestamp,
+                Title,
+              }: {
+                author: any;
+                tweet: any;
+                timestamp: any;
+                Title: string;
+              },
+              index: any
+            ) => {
               return (
-                <Post
-                  displayName={
-                    author.name === "Unnamed"
-                      ? `${author.walletAddress.slice(
-                          0,
-                          4
-                        )}...${author.walletAddress.slice(41)}`
-                      : author.name
-                  }
-                  userName={author.walletAddress}
-                  text={tweet}
-                  avatar={author.profileImage}
-                  timestamp={timestamp}
-                  isProfileImageNft={author.isProfileImageNft}
-                  Title={searchedData[index].Title}
-                  RePost={searchedData[index].RePost}
-                />
+                <div key={index}>
+                  <Post
+                    displayName={
+                      author.name === "Unnamed"
+                        ? `${author.walletAddress.slice(
+                            0,
+                            4
+                          )}...${author.walletAddress.slice(41)}`
+                        : author.name
+                    }
+                    userName={author.walletAddress}
+                    text={tweet}
+                    avatar={author.profileImage}
+                    timestamp={timestamp}
+                    isProfileImageNft={author.isProfileImageNft}
+                    Title={searchedData[index].Title}
+                    RePost={searchedData[index].RePost}
+                  />
+                </div>
               );
             }
           )}

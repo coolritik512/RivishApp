@@ -41,8 +41,6 @@ interface SidebarProps {
 function Sidebar({ initialSelectedIcon }: SidebarProps) {
   const [selected, setSelected] = useState<String>(initialSelectedIcon);
   const { currentAccount, currentUser } = useContext(TwitterContext);
-  const router = useRouter();
-
   return (
     <div className={style.wrapper}>
       <div className={style.twitterIconContainer}>Rivish </div>
@@ -61,31 +59,6 @@ function Sidebar({ initialSelectedIcon }: SidebarProps) {
           setSelected={setSelected}
           redirect={'/Search'}
         />
-        {/*
-        <SidebarOption
-          Icon={selected === "Notifications" ? FaBell : FiBell}
-          text="Notifications"
-          isActive={Boolean(selected === "Notifications")}
-          setSelected={setSelected}
-        />
-        <SidebarOption
-          Icon={selected === "Messages" ? HiMail : HiOutlineMail}
-          text="Messages"
-          isActive={Boolean(selected === "Messages")}
-          setSelected={setSelected}
-        />
-        <SidebarOption
-          Icon={selected === "Bookmarks" ? BsBookmarkFill : BsBookmark}
-          text="Bookmarks"
-          isActive={Boolean(selected === "Bookmarks")}
-          setSelected={setSelected}
-        />
-        <SidebarOption
-          Icon={selected === "Lists" ? RiFileList2Fill : FaRegListAlt}
-          text="Lists"
-          isActive={Boolean(selected === "Lists")}
-          setSelected={setSelected}
-        /> */}
         
         <SidebarOption
           Icon={selected === "Profile" ? BsPersonFill : BsPerson}
@@ -95,10 +68,6 @@ function Sidebar({ initialSelectedIcon }: SidebarProps) {
           redirect={"/profile"}
         />
 
-        {/* <SidebarOption Icon={CgMoreO} text="More" /> */}
-
-
-        
       </div>
       <div className={style.profileButton}>
         <div className={style.profileLeft}>
@@ -124,8 +93,6 @@ function Sidebar({ initialSelectedIcon }: SidebarProps) {
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 }

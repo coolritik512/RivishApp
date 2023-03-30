@@ -1,4 +1,3 @@
-import { profile } from "console";
 import { Dispatch, SetStateAction } from "react";
 import { BsImages } from "react-icons/bs";
 import { GiEarthAmerica } from "react-icons/gi";

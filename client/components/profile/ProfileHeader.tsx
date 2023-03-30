@@ -6,8 +6,6 @@ import {
 import { BsArrowLeftShort } from "react-icons/bs";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
-import ProfileImageMinter from "./mintingModal/ProfileImageMinter";
-import { customStyles } from "../../lib/constants";
 import { FaRegEdit } from "react-icons/fa";
 import { getEthereumContract } from "../../common/contractfunction";
 Modal.setAppElement("#__next");
@@ -44,8 +42,7 @@ interface UserData {
   isProfileImageNft: Boolean | undefined;
   bio: string;
 }
-declare let window:any
-
+declare let window: any;
 
 const ProfileHeader = () => {
   console.log("profile header");
@@ -135,14 +132,17 @@ const ProfileHeader = () => {
 
   async function getFollowersAndFollowing() {
     const contract = getEthereumContract();
-    const {_hex:a}=await contract.getFollower(userData.walletAddress);
+    const { _hex: a } = await contract.getFollower(userData.walletAddress);
     setFollower(parseInt(a));
-    const {_hex:b}=await contract.getFollowing(userData.walletAddress)
+    const { _hex: b } = await contract.getFollowing(userData.walletAddress);
     setFollowing(parseInt(b));
   }
 
-  function openFollower(walletAddress:string,LinkedType:string){
-    router.push({pathname:'/LinkedUser',query:{userAddress:walletAddress ,LinkedType:LinkedType }})
+  function openFollower(walletAddress: string, LinkedType: string) {
+    router.push({
+      pathname: "/LinkedUser",
+      query: { userAddress: walletAddress, LinkedType: LinkedType },
+    });
   }
 
   useEffect(() => {
@@ -161,11 +161,8 @@ const ProfileHeader = () => {
       updateFollow(currentAccount, userData.walletAddress);
     }
 
-    if(userData.walletAddress!='' )
-    getFollowersAndFollowing();
+    if (userData.walletAddress != "") getFollowersAndFollowing();
   }, [userData]);
-
-  
 
   return (
     <div className={style.wrapper}>
@@ -240,8 +237,18 @@ const ProfileHeader = () => {
         <div>{userData.bio}</div>
 
         <div className="flex gap-2">
-          <span className=" hover:underline" onClick={()=>openFollower(userData.walletAddress,'following')}>following {following}</span>
-          <span className=" hover:underline" onClick={()=>openFollower(userData.walletAddress,'follower')}>follower {follower}</span>
+          <span
+            className=" hover:underline"
+            onClick={() => openFollower(userData.walletAddress, "following")}
+          >
+            following {following}
+          </span>
+          <span
+            className=" hover:underline"
+            onClick={() => openFollower(userData.walletAddress, "follower")}
+          >
+            follower {follower}
+          </span>
         </div>
       </div>
       <div className={style.nav}>

@@ -6,7 +6,7 @@ import Modal from "react-modal";
 import ProfileImageMinter from "../components/profile/mintingModal/ProfileImageMinter";
 import { useRouter } from "next/router";
 import { customStyles } from "../lib/constants";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white `,
@@ -17,7 +17,6 @@ const style = {
 declare let window: any;
 
 const profile = () => {
-  // let window: any;
   console.log('profile component')
   const router = useRouter();
   const params = new URLSearchParams(window.location.search);

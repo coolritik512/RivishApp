@@ -1,7 +1,6 @@
-import React, { HTMLInputTypeAttribute, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { searchForUserInSanity } from "../common/sanity";
-import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 import UserSearchResult from "./userSearchResult";
 const style = {
   wrapper: `flex-[1] p-4`,

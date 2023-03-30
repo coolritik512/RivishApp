@@ -1,21 +1,14 @@
-import {
-  BsChevronCompactLeft,
-  BsChevronCompactRight,
-  BsFillPatchCheckFill,
-} from "react-icons/bs";
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 import { FaRegComment, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
-import { FiShare } from "react-icons/fi";
-import { format } from "timeago.js";
-import { ReactElement, useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import PageIndicator from "./pageIndicator";
 import CommentBox from "./commentBox";
 import { getEthereumContract } from "../common/contractfunction";
 import { getNftProfileImage, TwitterContext } from "../context/TwitterContext";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 import Modal from "react-modal";
-import { customStyles } from "../lib/constants";
 import { client } from "../lib/client";
 
 const style = {
@@ -55,7 +48,7 @@ const Post = ({
   timestamp,
   isProfileImageNft,
   Title,
-  RePost
+  RePost,
 }: PostProps) => {
   const [hidden, sethidden] = useState<boolean>(true);
   const router = useRouter();
@@ -70,7 +63,6 @@ const Post = ({
     setCommentCount(parseInt(comment));
     const { _hex: like } = await contract.getLikesCount(PostId);
     setLikeCount(parseInt(like));
-    // console.log(like, comment);
   }
 
   useEffect(() => {
@@ -141,16 +133,18 @@ function RePostComponent({
   PostId: number;
   ReTweet: any;
 }) {
-
-  const [RePostCount,setRePostCount]=useState(ReTweet??0);
-  async function RePostToSanity(PostId:number) {
-    await client.patch(`id${PostId}`).set({RePost:RePostCount+1}).commit();
+  const [RePostCount, setRePostCount] = useState(ReTweet ?? 0);
+  async function RePostToSanity(PostId: number) {
+    await client
+      .patch(`id${PostId}`)
+      .set({ RePost: RePostCount + 1 })
+      .commit();
   }
-  async function RePost(PostId:number) {
+  async function RePost(PostId: number) {
     const contract = getEthereumContract();
     await contract.RePost(PostId);
     RePostToSanity(PostId);
-    setRePostCount(RePostCount+1);
+    setRePostCount(RePostCount + 1);
   }
 
   return (
@@ -269,6 +263,7 @@ function PostImagesComponent({ images }: { images: [string] }) {
           {images.map((imageCode) => {
             return (
               <img
+                key={imageCode}
                 src={getNftProfileImage(imageCode)}
                 className="w-full h-full p-2"
               />

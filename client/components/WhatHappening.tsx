@@ -9,11 +9,10 @@ const style = {
   section: `bg-[#192734] my-6 rounded-xl overflow-hidden`,
   title: `p-2 font-bold text-lg`,
   showMore: `p-2 text-[#1d9bf0] text-sm cursor-pointer hover:bg-[#22303c]`,
-
 };
 export default function WhatHappening() {
   const [FamousPost, setFamousPost] = useState([]);
-  const router=useRouter();
+  const router = useRouter();
 
   async function loadTopTrendingPost() {
     const query = `
@@ -25,8 +24,8 @@ export default function WhatHappening() {
     setFamousPost(res);
   }
 
-  function openTheTrending(Trending:string){
-    router.push({pathname:'/Search',query:{Trending:Trending}});
+  function openTheTrending(Trending: string) {
+    router.push({ pathname: "/Search", query: { Trending: Trending } });
   }
 
   useEffect(() => {
@@ -36,9 +35,14 @@ export default function WhatHappening() {
   return (
     <div className={style.section}>
       <div className={style.title}>What's happening</div>
-      {FamousPost.map((item:any, index) => (
+      {FamousPost.map((item: any, index) => (
         <div
-        className=" text-lg  w-full  bg-gray-600 p-2 border-b m-1 border-white rounded-xl" onClick={()=>openTheTrending(item.Title)}>#{item.Title}</div>
+        key={index}
+          className=" text-lg  w-full  bg-gray-600 p-2 border-b m-1 border-white rounded-xl"
+          onClick={() => openTheTrending(item.Title)}
+        >
+          #{item.Title}
+        </div>
       ))}
     </div>
   );

@@ -41,11 +41,16 @@ export default function CommentBox({
     <div className={hidden ? "hidden" : style.container}>
       <form className={style.Form} onSubmit={(e) => Comment(e, PostId)}>
         <textarea id="comment" name="comment" className={style.Textarea} />
-        
+
         <button className={style.commentButton} type="submit">
           Comment
         </button>
-        <button className={style.commentButton + "text-white bg-red-600 rounded-3xl"} onClick={()=>sethidden(!hidden)}>Cancel</button>
+        <button
+          className={style.commentButton + "text-white bg-red-600 rounded-3xl"}
+          onClick={() => sethidden(!hidden)}
+        >
+          Cancel
+        </button>
       </form>
     </div>
   );
