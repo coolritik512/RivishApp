@@ -1,17 +1,21 @@
 import {
   BsChevronCompactLeft,
   BsChevronCompactRight,
+  BsFillPatchCheckFill,
 } from "react-icons/bs";
 import { FaRegComment, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
-import {useContext, useEffect, useRef, useState } from "react";
+import { FiShare } from "react-icons/fi";
+import { format } from "timeago.js";
+import { ReactElement, useContext, useEffect, useRef, useState } from "react";
 import PageIndicator from "./pageIndicator";
 import CommentBox from "./commentBox";
 import { getEthereumContract } from "../common/contractfunction";
 import { getNftProfileImage, TwitterContext } from "../context/TwitterContext";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 import Modal from "react-modal";
+import { customStyles } from "../lib/constants";
 import { client } from "../lib/client";
 
 const style = {

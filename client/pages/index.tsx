@@ -8,6 +8,9 @@ import errorImg from '../assets/error.png'
 import Image from 'next/image'
 import { Router } from 'next/router'
 
+
+
+
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white`,
   content: `w-full flex justify-between`,
@@ -94,3 +97,12 @@ const Home = () => {
 }
 
 export default Home
+
+
+// function Layout() {
+//   return (
+//     <div>
+      
+//     </div>
+//   )
+// }

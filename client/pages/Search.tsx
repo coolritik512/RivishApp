@@ -84,8 +84,6 @@ function ExploreComponent() {
           setSelected={changeFilter}
         />
       </div>
-
-      
       {selected == "User" ? (
         searchedData.length > 0 ? (
           <UserSearchResult searchedData={searchedData} styleClass={"mt-2"} />

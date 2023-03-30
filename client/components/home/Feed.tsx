@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { TwitterContext } from "../../context/TwitterContext";
 import TweetBox from "./TweetBox";
+import Post from "../Post";
 import { BsStars } from "react-icons/bs";
 import PostsContainer from "../PostsContainer";
 import { getEthereumContract } from "../../common/contractfunction";

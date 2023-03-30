@@ -1,10 +1,13 @@
 import { ethers } from 'ethers'
 import { useEffect, useContext, useState } from 'react'
 import { TwitterContext } from '../../context/TwitterContext'
+import { contractABI, contractAddress } from '../../lib/constants'
 import { Tweet, TweetAuthor } from '../home/Feed'
+import Post from '../Post'
 import PostsContainer from '../PostsContainer'
 
 declare let window:any
+
 
 const style = {
   wrapper: ` no-scrollbar`,
@@ -18,14 +21,14 @@ interface Tweets extends Array<Tweet> {}
 
 const ProfileTweets = () => {
   
-  // console.log('profile tweet');
+  console.log('profile tweet');
   const params = new URLSearchParams(window.location.search);
   const searchedUser = params.get("userName");
 
   const { currentUser,getIndividualUserDetails } = useContext(TwitterContext);
 
   const [tweets, setTweets] = useState<Tweets>([]);
-  // console.log(tweets);
+  console.log(tweets);
   const [author, setAuthor] = useState<TweetAuthor>({
     name: '',
     profileImage: '',
