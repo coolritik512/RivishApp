@@ -45,7 +45,7 @@ interface UserData {
 declare let window: any;
 
 const ProfileHeader = () => {
-  if (window !== undefined) {
+  if (window === undefined) {
     return null;
   }
   console.log("profile header");

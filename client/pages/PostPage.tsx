@@ -18,10 +18,10 @@ declare let window: any;
 
 const PostPage = () => {
   // let window: any;
-  if (window !== undefined) {
+  if (window === undefined) {
     return null;
   }
-  
+
   const params = new URLSearchParams(window?.location?.search);
   const PostId = parseInt(params.get("PostId") ?? "");
   console.log("ukku ", PostId);

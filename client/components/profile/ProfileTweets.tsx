@@ -17,7 +17,7 @@ const style = {
 interface Tweets extends Array<Tweet> {}
 
 const ProfileTweets = () => {
-  if (window !== undefined) {
+  if (window === undefined) {
     return null;
   }
   console.log("profile tweet");

@@ -15,7 +15,7 @@ const style = {
 
 export default function Follower() {
   // let window: any;
-  if (window !== undefined) {
+  if (window === undefined) {
     return null;
   }
   const params = new URLSearchParams(window?.location?.search);
