@@ -35,9 +35,9 @@ export const TwitterProvider = ({ children }) => {
    * Checks if there is an active wallet connection
    */
   const checkIfWalletIsConnected = async () => {
-    if (!window.ethereum) return setAppStatus('noMetaMask')
+    if (!window?.ethereum) return setAppStatus('noMetaMask')
     try {
-      const addressArray = await window.ethereum.request({
+      const addressArray = await window?.ethereum.request({
         method: 'eth_accounts',
       })
       if (addressArray.length > 0) {
@@ -59,11 +59,11 @@ export const TwitterProvider = ({ children }) => {
    * Initiates MetaMask wallet connection
    */
   const connectWallet = async () => {
-    if (!window.ethereum) return setAppStatus('noMetaMask')
+    if (!window?.ethereum) return setAppStatus('noMetaMask')
     try {
       setAppStatus('loading')
 
-      const addressArray = await window.ethereum.request({
+      const addressArray = await window?.ethereum.request({
         method: 'eth_requestAccounts',
       })
 
@@ -86,7 +86,7 @@ export const TwitterProvider = ({ children }) => {
    * @param {String} userAddress Wallet address of the currently logged in user
    */
   const createUserAccount = async (userAddress = currentAccount) => {
-    if (!window.ethereum) return setAppStatus('noMetaMask')
+    if (!window?.ethereum) return setAppStatus('noMetaMask')
     try {
       const userDoc = {
         _type: 'users',

@@ -19,7 +19,7 @@ declare let window: any;
 const profile = () => {
   console.log('profile component')
   const router = useRouter();
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(window?.location?.search);
   const [searchedUser,setsearchedUser] = useState(params.get('userName'));
 
   return (

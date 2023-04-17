@@ -18,7 +18,7 @@ declare let window: any;
 
 const PostPage = () => {
   // let window: any;
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(window?.location?.search);
   const PostId = parseInt(params.get("PostId") ?? "");
   console.log("ukku ", PostId);
 

@@ -46,7 +46,7 @@ declare let window: any;
 
 const ProfileHeader = () => {
   console.log("profile header");
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(window?.location?.search);
   const searchedUser = params.get("userName");
 
   const [userData, setUserData] = useState<UserData>({

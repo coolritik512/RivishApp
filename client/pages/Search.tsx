@@ -45,7 +45,7 @@ function SearchFilterOptions({
 declare let window: any;
 
 function ExploreComponent() {
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(window?.location?.search);
   const Trending = params.get("Trending")??'';
 
   const [selected, setSelected] = useState("User");

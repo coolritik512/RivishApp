@@ -18,7 +18,7 @@ interface Tweets extends Array<Tweet> {}
 
 const ProfileTweets = () => {
   console.log("profile tweet");
-  const params = new URLSearchParams(window.location.search);
+  const params = new URLSearchParams(window?.location?.search);
   const searchedUser = params.get("userName");
 
   const { currentUser, getIndividualUserDetails } = useContext(TwitterContext);
