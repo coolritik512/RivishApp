@@ -42,15 +42,15 @@ function SearchFilterOptions({
     </button>
   );
 }
-declare let window: any;
+// declare let window: any;
 
 function ExploreComponent() {
   let params;
   let Trending='';
 
-  if (window) {
-    params = new URLSearchParams(window?.location?.search);
-    Trending = params.get("Trending") ?? "";
+  if (typeof window !== "undefined") {
+    // params = new URLSearchParams(window?.location?.search);
+    // Trending = params.get("Trending") ?? "";
   }
   else{
     Trending=''

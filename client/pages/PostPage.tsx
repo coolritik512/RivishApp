@@ -14,12 +14,12 @@ const style = {
   content: `w-full flex justify-between`,
   mainContent: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll no-scrollbar`,
 };
-declare let window: any;
+// declare let window: any;
 
 const PostPage = () => {
   let params;
   let PostId:any;
-  if (window) {
+  if (typeof window !== "undefined") {
      params = new URLSearchParams(window?.location?.search);
      PostId = parseInt(params.get("PostId") ?? "");
   }

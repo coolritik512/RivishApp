@@ -11,14 +11,14 @@ const style = {
   content: `w-full flex justify-between`,
   mainContent: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll no-scrollbar`,
 };
-declare let window: any;
+// declare let window: any;
 
 export default function Follower() {
   // let window: any;
   let params ;
   let userAddress:any='';
   let LinkedType :any='';
-  if (window) {
+  if (typeof window !== "undefined") {
     params = new URLSearchParams(window?.location?.search);
     userAddress = params.get("userAddress");
     LinkedType = params.get("LinkedType");  

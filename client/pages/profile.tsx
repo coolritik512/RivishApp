@@ -14,14 +14,14 @@ const style = {
   mainContent: `flex-[2] border-r border-l border-[#38444d] overflow-y-scroll no-scrollbar`,
 };
 
-declare let window: any;
+// declare let window: any;
 
 const profile = () => {
   let params;
   let [searchedUser, setsearchedUser] = useState<any>("");
 
   useEffect(() => {
-    if (window) {
+    if (typeof window !== "undefined") {
       params = new URLSearchParams(window?.location?.search);
       if(params.get("userName"))
       setsearchedUser(params.get("userName"));

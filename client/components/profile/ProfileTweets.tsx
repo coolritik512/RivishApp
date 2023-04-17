@@ -6,7 +6,7 @@ import { Tweet, TweetAuthor } from "../home/Feed";
 import Post from "../Post";
 import PostsContainer from "../PostsContainer";
 
-declare let window: any;
+// declare let window: any;
 
 const style = {
   wrapper: ` no-scrollbar`,
@@ -20,7 +20,7 @@ const ProfileTweets = () => {
   let params;
   let searchedUser:any=null;
 
-  if (window) {
+  if (typeof window !== "undefined") {
      params = new URLSearchParams(window?.location?.search);
      searchedUser = params.get("userName");
   }

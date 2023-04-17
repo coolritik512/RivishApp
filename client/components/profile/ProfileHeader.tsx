@@ -42,17 +42,17 @@ interface UserData {
   isProfileImageNft: Boolean | undefined;
   bio: string;
 }
-declare let window: any;
+// declare let window: any;
 
 const ProfileHeader = () => {
   let params;
   let searchedUser:any=null;
 
-  if (window) {
+  if (typeof window !== "undefined") {
     params = new URLSearchParams(window?.location?.search);
     searchedUser = params.get("userName");
   }
-  
+
   console.log("profile header");
   const [userData, setUserData] = useState<UserData>({
     name: "",
