@@ -6,7 +6,7 @@ import Modal from "react-modal";
 import ProfileImageMinter from "../components/profile/mintingModal/ProfileImageMinter";
 import { useRouter } from "next/router";
 import { customStyles } from "../lib/constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const style = {
   wrapper: `flex justify-center h-screen w-screen select-none bg-[#15202b] text-white `,
@@ -17,19 +17,24 @@ const style = {
 declare let window: any;
 
 const profile = () => {
-  if (window === undefined) {
-    return null;
-  }
+  let params;
+  let [searchedUser, setsearchedUser] = useState<any>("");
 
-  console.log('profile component')
+  useEffect(() => {
+    if (window) {
+      params = new URLSearchParams(window?.location?.search);
+      if(params.get("userName"))
+      setsearchedUser(params.get("userName"));
+    }
+  });
+
+  console.log("profile component");
   const router = useRouter();
-  const params = new URLSearchParams(window?.location?.search);
-  const [searchedUser,setsearchedUser] = useState(params.get('userName'));
 
   return (
     <div className={style.wrapper}>
       <div className={style.content}>
-        {searchedUser !=null ? (
+        {searchedUser != null ? (
           <Sidebar initialSelectedIcon={""} />
         ) : (
           <Sidebar initialSelectedIcon={"Profile"} />

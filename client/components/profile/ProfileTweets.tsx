@@ -17,12 +17,15 @@ const style = {
 interface Tweets extends Array<Tweet> {}
 
 const ProfileTweets = () => {
-  if (window === undefined) {
-    return null;
+  let params;
+  let searchedUser:any=null;
+
+  if (window) {
+     params = new URLSearchParams(window?.location?.search);
+     searchedUser = params.get("userName");
   }
+  
   console.log("profile tweet");
-  const params = new URLSearchParams(window?.location?.search);
-  const searchedUser = params.get("userName");
 
   const { currentUser, getIndividualUserDetails } = useContext(TwitterContext);
 

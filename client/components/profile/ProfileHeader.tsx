@@ -45,13 +45,15 @@ interface UserData {
 declare let window: any;
 
 const ProfileHeader = () => {
-  if (window === undefined) {
-    return null;
-  }
-  console.log("profile header");
-  const params = new URLSearchParams(window?.location?.search);
-  const searchedUser = params.get("userName");
+  let params;
+  let searchedUser:any=null;
 
+  if (window) {
+    params = new URLSearchParams(window?.location?.search);
+    searchedUser = params.get("userName");
+  }
+  
+  console.log("profile header");
   const [userData, setUserData] = useState<UserData>({
     name: "",
     profileImage: "",

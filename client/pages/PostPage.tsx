@@ -17,13 +17,16 @@ const style = {
 declare let window: any;
 
 const PostPage = () => {
-  // let window: any;
-  if (window === undefined) {
-    return null;
+  let params;
+  let PostId:any;
+  if (window) {
+     params = new URLSearchParams(window?.location?.search);
+     PostId = parseInt(params.get("PostId") ?? "");
+  }
+  else{
+    PostId=0;
   }
 
-  const params = new URLSearchParams(window?.location?.search);
-  const PostId = parseInt(params.get("PostId") ?? "");
   console.log("ukku ", PostId);
 
   const { getTweetDetails } = useContext(TwitterContext);

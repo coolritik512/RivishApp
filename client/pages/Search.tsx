@@ -45,11 +45,16 @@ function SearchFilterOptions({
 declare let window: any;
 
 function ExploreComponent() {
-  if (window === undefined) {
-    return null;
+  let params;
+  let Trending='';
+
+  if (window) {
+    params = new URLSearchParams(window?.location?.search);
+    Trending = params.get("Trending") ?? "";
   }
-  const params = new URLSearchParams(window?.location?.search);
-  const Trending = params.get("Trending")??'';
+  else{
+    Trending=''
+  }
 
   const [selected, setSelected] = useState("User");
   const [searchedData, setSearchedData] = useState([]);
@@ -60,17 +65,21 @@ function ExploreComponent() {
     }
   });
 
-  console.log(selected,Trending);
+  // console.log(selected, Trending);
 
   function changeFilter(type: string) {
     setSelected(type);
     setSearchedData([]);
   }
 
-  console.log(searchedData);
+  // console.log(searchedData);
   return (
     <div className="w-[50vw] border p-2 flex-[2] border-r border-l border-[#38444d] overflow-y-scroll relative no-scrollbar">
-      <SearchBar Trending={Trending} searchType={selected} setSearchedData={setSearchedData} />
+      <SearchBar
+        Trending={Trending}
+        searchType={selected}
+        setSearchedData={setSearchedData}
+      />
       <div className=" text-xl w-full flex  text-zinc-300 gap-2 mt-2 border-b border-gray-400 p-2">
         <SearchFilterOptions
           type="User"
@@ -83,7 +92,7 @@ function ExploreComponent() {
           setSelected={changeFilter}
         />
       </div>
-      
+
       {selected == "User" ? (
         searchedData.length > 0 ? (
           <UserSearchResult searchedData={searchedData} styleClass={"mt-2"} />
