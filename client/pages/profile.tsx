@@ -17,6 +17,10 @@ const style = {
 declare let window: any;
 
 const profile = () => {
+  if (window !== undefined) {
+    return null;
+  }
+  
   console.log('profile component')
   const router = useRouter();
   const params = new URLSearchParams(window?.location?.search);

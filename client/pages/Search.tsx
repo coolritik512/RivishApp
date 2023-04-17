@@ -45,6 +45,9 @@ function SearchFilterOptions({
 declare let window: any;
 
 function ExploreComponent() {
+  if (window !== undefined) {
+    return null;
+  }
   const params = new URLSearchParams(window?.location?.search);
   const Trending = params.get("Trending")??'';
 

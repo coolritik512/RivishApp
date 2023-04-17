@@ -17,6 +17,9 @@ const style = {
 interface Tweets extends Array<Tweet> {}
 
 const ProfileTweets = () => {
+  if (window !== undefined) {
+    return null;
+  }
   console.log("profile tweet");
   const params = new URLSearchParams(window?.location?.search);
   const searchedUser = params.get("userName");

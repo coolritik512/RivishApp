@@ -45,6 +45,9 @@ interface UserData {
 declare let window: any;
 
 const ProfileHeader = () => {
+  if (window !== undefined) {
+    return null;
+  }
   console.log("profile header");
   const params = new URLSearchParams(window?.location?.search);
   const searchedUser = params.get("userName");
