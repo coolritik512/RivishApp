@@ -3,7 +3,7 @@ import { BsImages } from "react-icons/bs";
 import { GiEarthAmerica } from "react-icons/gi";
 
 const style = {
-  wrapper: `h-[20rem] w-[50vw] text-white bg-[#15202b] rounded-3xl p-10 flex flex-col`,
+  wrapper: ` h-max w-[50vw] text-white bg-[#15202b] rounded-3xl p-10 flex flex-col`,
   inputFieldsContainer: `flex-1 w-full`,
   inputContainer: `mb-4 w-full flex text-3xl items-center gap-2`,
   fileInput: `hidden`,

@@ -12,3 +12,43 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+#mobileSidebar{
+  display :none;
+}
+
+@media (width<=820px){
+
+  #widgets{
+    display: none;
+  }
+  #sidebar{
+    width:  max-content;
+    padding: 0.5rem;
+  }
+  #rivishIconContainer{
+  }
+}
+
+@media (width<=550px) {
+
+
+  #sidebar{
+    display: none;
+  }
+  #mobileSidebar{
+    grid-area: sidebar;
+    width: 100%;
+    position: absolute;
+    display :block;
+    display: flex;
+    flex-direction: row;
+    bottom: 0px;
+    padding: 1rem;
+    z-index: 1;
+    background: #15202b;
+  }
+  #navContainer{
+    display: flex;
+    justify-content: space-between;
+  }
+}

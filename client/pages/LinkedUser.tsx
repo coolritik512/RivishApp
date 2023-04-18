@@ -18,14 +18,11 @@ export default function Follower() {
   let params ;
   let userAddress:any='';
   let LinkedType :any='';
+
   if (typeof window !== "undefined") {
     params = new URLSearchParams(window?.location?.search);
     userAddress = params.get("userAddress");
     LinkedType = params.get("LinkedType");  
-  }
-  else{
-    userAddress = ''
-    LinkedType = ''
   }
 
   const [LinkedUserList, setLinkedUserList] = useState<any>();

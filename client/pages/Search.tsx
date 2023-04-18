@@ -42,6 +42,8 @@ function SearchFilterOptions({
     </button>
   );
 }
+
+
 // declare let window: any;
 
 function ExploreComponent() {
@@ -52,9 +54,6 @@ function ExploreComponent() {
     params = new URLSearchParams(window?.location?.search);
     Trending = params.get("Trending") ?? "";
   }
-  else{
-    Trending=''
-  }
 
   const [selected, setSelected] = useState("User");
   const [searchedData, setSearchedData] = useState([]);
@@ -64,8 +63,6 @@ function ExploreComponent() {
       setSelected("Post");
     }
   });
-
-  // console.log(selected, Trending);
 
   function changeFilter(type: string) {
     setSelected(type);

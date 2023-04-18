@@ -38,7 +38,7 @@ const Home = () => {
   }
 
   const userLoggedIn = (
-    <div className={style.content}>
+    <div id='app' className={style.content}>
       <Sidebar initialSelectedIcon={'Home'} />
       <Feed />
       <Widgets />

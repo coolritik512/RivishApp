@@ -54,7 +54,7 @@ function Widgets() {
   }
 
   return (
-    <div className={style.wrapper}>
+    <div id='widgets' className={style.wrapper}>
       <SearchBar searchType="User" />
       <WhatHappening />
     </div>
