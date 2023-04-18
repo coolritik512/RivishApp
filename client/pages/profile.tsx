@@ -23,8 +23,7 @@ const profile = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       params = new URLSearchParams(window?.location?.search);
-      if(params.get("userName"))
-      setsearchedUser(params.get("userName"));
+      if (params.get("userName")) setsearchedUser(params.get("userName"));
     }
   });
 

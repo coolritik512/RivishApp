@@ -32,7 +32,7 @@ function Widgets() {
   // console.log("widgets");
 
   const [UserFound, setUserFound] = useState([]);
-  const [FamousPost,setFamousPost] = useState([])
+  const [FamousPost, setFamousPost] = useState([]);
 
   const TimerOut = useRef<number>();
 
@@ -55,30 +55,8 @@ function Widgets() {
 
   return (
     <div className={style.wrapper}>
-      <SearchBar searchType="User"  />
-
-      <WhatHappening/>
-      
-      {/* <div className={style.section}>
-        <div className={style.title}>Who to follow</div>
-        {whoToFollow.map((item, index) => (
-          <div key={index} className={style.item}>
-            <div className={style.followAvatarContainer}>
-              <img
-                src={item.avatar}
-                alt={item.handle}
-                className={style.followAvatar}
-              />
-            </div>
-            <div className={style.profileDetails}>
-              <div className={style.name}>{item.name}</div>
-              <div className={style.handle}>{item.handle}</div>
-            </div>
-            <div className={style.followButton}>Follow</div>
-          </div>
-        ))}
-        <div className={style.showMore}>Show more</div>
-      </div> */}
+      <SearchBar searchType="User" />
+      <WhatHappening />
     </div>
   );
 }

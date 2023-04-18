@@ -49,8 +49,8 @@ function ExploreComponent() {
   let Trending='';
 
   if (typeof window !== "undefined") {
-    // params = new URLSearchParams(window?.location?.search);
-    // Trending = params.get("Trending") ?? "";
+    params = new URLSearchParams(window?.location?.search);
+    Trending = params.get("Trending") ?? "";
   }
   else{
     Trending=''
