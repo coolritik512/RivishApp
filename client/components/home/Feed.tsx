@@ -3,7 +3,7 @@ import { TwitterContext } from "../../context/TwitterContext";
 import TweetBox from "./TweetBox";
 import { BsStars } from "react-icons/bs";
 import PostsContainer from "../PostsContainer";
-import { getEthereumContract } from "../../common/contractfunction";
+import { getEthereumContract } from "../../api/contractfunction";
 import { client } from "../../lib/client";
 
 const style = {
@@ -36,7 +36,7 @@ function Feed() {
   const [Posts, setPosts] = useState<any>();
 
   async function getRecentPostofUser(userAddress: string) {
-    console.log("getRecent post if user");
+    console.log("getRecent zpost if user");
     const query = `
     *[_type == "users" && walletAddress == "${userAddress.toLowerCase()}"]{
       "tweets": tweets[]->{tweet}|order(timestamp desc),

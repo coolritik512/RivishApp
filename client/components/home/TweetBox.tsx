@@ -6,8 +6,8 @@ import { pinFileToIPFS, pinJSONToIPFS } from "../../lib/pinata";
 import { contractABI, contractAddress } from "../../lib/constants";
 import { ethers } from "ethers";
 import { fileURLToPath } from "url";
-import { getEthereumContract } from "../../common/contractfunction";
-import { uploadImagesToPintata } from "../../common/pintatafunction";
+import { getEthereumContract } from "../../api/contractfunction";
+import { uploadImagesToPintata } from "../../api/pintatafunction";
 
 const style = {
   wrapper: `px-4 flex flex-row border-b border-[#38444d] pb-4`,

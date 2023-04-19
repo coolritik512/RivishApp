@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { client } from '../lib/client'
 import { ethers } from 'ethers';
 import { contractABI, contractAddress } from '../lib/constants';
-import { getTweetDescription, getEthereumContract } from '../common/contractfunction';
+import { getTweetDescription, getEthereumContract } from '../api/contractfunction';
 
 export const TwitterContext = createContext();
 export const getNftProfileImage = (imageUri) => {
@@ -228,7 +228,6 @@ export const TwitterProvider = ({ children }) => {
       isProfileImageNft: response[0]?.isProfileImageNft,
       bio: response[0]?.bio,
     };
-    // console.log(ans);
     return ans;
   }
 

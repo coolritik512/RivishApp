@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { getEthereumContract } from "../common/contractfunction";
+import { getEthereumContract } from "../api/contractfunction";
 import { TwitterContext } from "../context/TwitterContext";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 

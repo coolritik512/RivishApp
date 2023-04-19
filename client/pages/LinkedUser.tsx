@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { getEthereumContract } from "../common/contractfunction";
-import { searchForUserInSanity } from "../common/sanity";
+import { getEthereumContract } from "../api/contractfunction";
+import { searchForUserInSanity } from "../api/sanity";
 import Follw from "../components/Follw";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
@@ -15,14 +15,14 @@ const style = {
 
 export default function Follower() {
   // let window: any;
-  let params ;
-  let userAddress:any='';
-  let LinkedType :any='';
+  let params;
+  let userAddress: any = "";
+  let LinkedType: any = "";
 
   if (typeof window !== "undefined") {
     params = new URLSearchParams(window?.location?.search);
     userAddress = params.get("userAddress");
-    LinkedType = params.get("LinkedType");  
+    LinkedType = params.get("LinkedType");
   }
 
   const [LinkedUserList, setLinkedUserList] = useState<any>();

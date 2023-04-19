@@ -1,6 +1,6 @@
 import { news, whoToFollow } from "../lib/static";
 import { BiSearch } from "react-icons/bi";
-import { searchForUserInSanity } from "../common/sanity";
+import { searchForUserInSanity } from "../api/sanity";
 import { useRef, useState } from "react";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 import SearchBar from "./SearchBar";
@@ -54,7 +54,7 @@ function Widgets() {
   }
 
   return (
-    <div id='widgets' className={style.wrapper}>
+    <div id="widgets" className={style.wrapper}>
       <SearchBar searchType="User" />
       <WhatHappening />
     </div>

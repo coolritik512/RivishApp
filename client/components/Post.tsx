@@ -4,7 +4,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { useContext, useEffect, useRef, useState } from "react";
 import PageIndicator from "./pageIndicator";
 import CommentBox from "./commentBox";
-import { getEthereumContract } from "../common/contractfunction";
+import { getEthereumContract } from "../api/contractfunction";
 import { getNftProfileImage, TwitterContext } from "../context/TwitterContext";
 import { useRouter } from "next/router";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";

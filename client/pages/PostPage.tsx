@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { BsFillPatchCheckFill } from "react-icons/bs";
-import { getEthereumContract } from "../common/contractfunction";
+import { getEthereumContract } from "../api/contractfunction";
 import CommentComponent from "../components/commentComponent";
 import { Tweet } from "../components/home/Feed";
 import Post from "../components/Post";
@@ -18,13 +18,12 @@ const style = {
 
 const PostPage = () => {
   let params;
-  let PostId:any;
+  let PostId: any;
   if (typeof window !== "undefined") {
-     params = new URLSearchParams(window?.location?.search);
-     PostId = parseInt(params.get("PostId") ?? "");
-  }
-  else{
-    PostId=0;
+    params = new URLSearchParams(window?.location?.search);
+    PostId = parseInt(params.get("PostId") ?? "");
+  } else {
+    PostId = 0;
   }
 
   console.log("ukku ", PostId);

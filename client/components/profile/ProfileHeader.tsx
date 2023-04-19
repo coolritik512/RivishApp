@@ -7,7 +7,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import { FaRegEdit } from "react-icons/fa";
-import { getEthereumContract } from "../../common/contractfunction";
+import { getEthereumContract } from "../../api/contractfunction";
 Modal.setAppElement("#__next");
 
 const style = {
@@ -46,7 +46,7 @@ interface UserData {
 
 const ProfileHeader = () => {
   let params;
-  let searchedUser:any=null;
+  let searchedUser: any = null;
 
   if (typeof window !== "undefined") {
     params = new URLSearchParams(window?.location?.search);
