@@ -20,7 +20,7 @@
     "**/*.ts",
     "**/*.tsx",
     "components/home/TweetBox.jsx",
-    "api/pintatafunction.js"
+    "common/pintatafunction.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { getEthereumContract } from "../api/contractfunction";
-import { searchForUserInSanity } from "../api/sanity";
-import Follw from "../components/Follw";
+import { getEthereumContract } from "../common/contractfunction";
+import { searchForUserInSanity } from "../common/sanity";
+import Follow from "../components/Follow";
 import Sidebar from "../components/Sidebar";
 import Widgets from "../components/Widgets";
 
@@ -65,7 +65,7 @@ export default function Follower() {
       <div className={style.content}>
         <Sidebar initialSelectedIcon={""} />
         <div className={style.mainContent}>
-          <Follw UserList={LinkedUserList} LinkedType={LinkedType} />
+          <Follow UserList={LinkedUserList} LinkedType={LinkedType} />
         </div>
         <Widgets />
       </div>

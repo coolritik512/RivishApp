@@ -26,24 +26,22 @@ const profile = () => {
       if (params.get("userName")) setsearchedUser(params.get("userName"));
     }
   });
-
-  console.log("profile component");
   const router = useRouter();
-
   return (
     <div className={style.wrapper}>
       <div className={style.content}>
-        {searchedUser != null ? (
+        {
+        searchedUser != null ? (
           <Sidebar initialSelectedIcon={""} />
         ) : (
           <Sidebar initialSelectedIcon={"Profile"} />
-        )}
+        )
+        }
         <div className={style.mainContent}>
           <ProfileHeader />
           <ProfileTweets />
         </div>
         <Widgets />
-
         <Modal
           isOpen={Boolean(router.query.mint)}
           onRequestClose={() => router.back()}

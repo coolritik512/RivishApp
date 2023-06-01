@@ -1,8 +1,7 @@
 import React from "react";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 
-export default function UserSearchResult({
-  searchedData,styleClass
+export default function UserSearchResult({ searchedData,styleClass
 }: {
   searchedData: Array<any>;
   styleClass?:string

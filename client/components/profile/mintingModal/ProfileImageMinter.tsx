@@ -6,8 +6,8 @@ import { contractAddress } from "../../../lib/constants";
 import InitialState from "./InitialState";
 import LoadingState from "./LoadingState";
 import FinishedState from "./FinishedState";
-import { uploadImagesToPintata } from "../../../api/pintatafunction";
-import { getEthereumContract } from "../../../api/contractfunction";
+import { uploadImagesToPintata } from "../../../common/pintatafunction";
+import { getEthereumContract } from "../../../common/contractfunction";
 
 declare let window: any;
 

@@ -1,5 +1,5 @@
 import React, { FormEvent, useContext, useEffect } from "react";
-import { saveComment, getEthereumContract } from "../api/contractfunction";
+import { saveComment, getEthereumContract } from "../common/contractfunction";
 import { TwitterContext } from "../context/TwitterContext";
 
 type commentBoxPropType = {
@@ -16,13 +16,8 @@ const style = {
   commentButton: "bg-blue-500 rounded-3xl w-full h-full text-white",
 };
 
-export default function CommentBox({
-  PostId,
-  hidden,
-  sethidden,
-}: commentBoxPropType) {
+export default function CommentBox({ PostId, hidden, sethidden, }: commentBoxPropType) {
   const { currentUser } = useContext(TwitterContext);
-
   async function Comment(event: FormEvent, PostId: number) {
     event.preventDefault();
 
@@ -31,17 +26,13 @@ export default function CommentBox({
     }: any = event.target;
     const contract = getEthereumContract();
 
-    console.log(currentUser.walletAddress);
-    console.log(PostId, currentUser.walletAddress, comment);
     await contract.saveComment(PostId, currentUser.walletAddress, comment);
     sethidden(!hidden);
   }
-
   return (
     <div className={hidden ? "hidden" : style.container}>
       <form className={style.Form} onSubmit={(e) => Comment(e, PostId)}>
         <textarea id="comment" name="comment" className={style.Textarea} />
-
         <button className={style.commentButton} type="submit">
           Comment
         </button>

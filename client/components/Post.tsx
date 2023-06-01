@@ -4,7 +4,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { useContext, useEffect, useRef, useState } from "react";
 import PageIndicator from "./pageIndicator";
 import CommentBox from "./commentBox";
-import { getEthereumContract } from "../api/contractfunction";
+import { getEthereumContract } from "../common/contractfunction";
 import { getNftProfileImage, TwitterContext } from "../context/TwitterContext";
 import { useRouter } from "next/router";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
@@ -40,16 +40,7 @@ interface PostProps {
   RePost?: string;
 }
 
-const Post = ({
-  displayName,
-  userName,
-  text,
-  avatar,
-  timestamp,
-  isProfileImageNft,
-  Title,
-  RePost,
-}: PostProps) => {
+const Post = ({ displayName, userName, text, avatar, timestamp, isProfileImageNft, Title, RePost }: PostProps) => {
   const [hidden, sethidden] = useState<boolean>(true);
   const router = useRouter();
   const { PostDescription, PostId, Images } = text;
@@ -78,7 +69,6 @@ const Post = ({
         profileImageLink={avatar}
         timestamp={timestamp}
       />
-
       <div className={style.postMain} key={PostId + "post"}>
         <div>
           <div

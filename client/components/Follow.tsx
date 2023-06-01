@@ -11,7 +11,7 @@ const style = {
   coverPhotoContainer: `flex items-center justify-center h-[30vh] overflow-hidden`,
   details: `px-3`,
 };
-export default function Follw({
+export default function Follow({
   UserList,
   LinkedType,
 }: {

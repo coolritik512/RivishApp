@@ -7,7 +7,7 @@ import { BsArrowLeftShort } from "react-icons/bs";
 import { useRouter } from "next/router";
 import Modal from "react-modal";
 import { FaRegEdit } from "react-icons/fa";
-import { getEthereumContract } from "../../api/contractfunction";
+import { getEthereumContract } from "../../common/contractfunction";
 Modal.setAppElement("#__next");
 
 const style = {

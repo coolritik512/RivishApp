@@ -3,7 +3,7 @@ import { TwitterContext } from "../../context/TwitterContext";
 import TweetBox from "./TweetBox";
 import { BsStars } from "react-icons/bs";
 import PostsContainer from "../PostsContainer";
-import { getEthereumContract } from "../../api/contractfunction";
+import { getEthereumContract } from "../../common/contractfunction";
 import { client } from "../../lib/client";
 
 const style = {
@@ -36,22 +36,17 @@ function Feed() {
   const [Posts, setPosts] = useState<any>();
 
   async function getRecentPostofUser(userAddress: string) {
-    console.log("getRecent zpost if user");
+    console.log("getRecent post of user");
     const query = `
     *[_type == "users" && walletAddress == "${userAddress.toLowerCase()}"]{
       "tweets": tweets[]->{tweet}|order(timestamp desc),
     }`;
 
-    console.log(query);
-
     const result = await client.fetch(query);
-    console.log(result);
     let TweetDes = [];
     if (result[0]?.tweets?.length > 0) {
       TweetDes = await getTweetDetails(result[0].tweets[0].tweet);
     }
-
-    console.log(TweetDes);
     return TweetDes.length > 0 ? TweetDes[0] : null;
   }
 
@@ -63,7 +58,6 @@ function Feed() {
       currentUser.walletAddress
     );
     const Tweets = [];
-    console.log(followedUser);
     for (const useraddres of followedUser) {
       const recentPost = await getRecentPostofUser(useraddres);
       if (recentPost) Tweets.push(recentPost);

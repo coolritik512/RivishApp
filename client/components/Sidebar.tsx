@@ -57,7 +57,6 @@ function Sidebar({ initialSelectedIcon }: SidebarProps) {
             setSelected={setSelected}
             redirect={"/Search"}
           />
-
           <SidebarOption
             Icon={selected === "Profile" ? BsPersonFill : BsPerson}
             text="Profile"
@@ -90,7 +89,6 @@ function Sidebar({ initialSelectedIcon }: SidebarProps) {
           </div>
         </div>
       </div>
-
       <div id="mobileSidebar">
         {/* <div id="rivishIconContainer" className={style.twitterIconContainer}>
           Rivish{" "}

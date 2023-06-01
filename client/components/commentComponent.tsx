@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { getEthereumContract } from "../api/contractfunction";
+import { getEthereumContract } from "../common/contractfunction";
 import { TwitterContext } from "../context/TwitterContext";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 
@@ -45,14 +45,7 @@ export default function CommentComponent({ PostId }: { PostId: any }) {
   );
 }
 
-function SignleComment({
-  UserId,
-  commentDescription,
-  index,
-}: {
-  UserId: string;
-  commentDescription: string;
-  index: number;
+function SignleComment({UserId,commentDescription,index }: { UserId: string;commentDescription: string;index: number;
 }) {
   const { getIndividualUserDetails } = useContext(TwitterContext);
   const [UserDetails, setUserDetails] = useState<any>();

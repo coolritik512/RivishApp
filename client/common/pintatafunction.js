@@ -1,7 +1,7 @@
 
 import { pinFileToIPFS,pinJSONToIPFS } from "../lib/pinata";
 
-export async function uploadImagesToPintata(PostImage) {
+export async function uploadImagesToPintata(PostImage=[]) {
     const ImageUri = [];
     console.log(PostImage);
     for (var i=0;i<PostImage.length;i++) {

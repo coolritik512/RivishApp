@@ -1,6 +1,6 @@
 import { news, whoToFollow } from "../lib/static";
 import { BiSearch } from "react-icons/bi";
-import { searchForUserInSanity } from "../api/sanity";
+import { searchForUserInSanity } from "../common/sanity";
 import { useRef, useState } from "react";
 import ShortUserProfileComponent from "./profile/shortUserProfileComponent";
 import SearchBar from "./SearchBar";
@@ -29,29 +29,6 @@ const style = {
 };
 
 function Widgets() {
-  // console.log("widgets");
-
-  const [UserFound, setUserFound] = useState([]);
-  const [FamousPost, setFamousPost] = useState([]);
-
-  const TimerOut = useRef<number>();
-
-  function debounce(event: any) {
-    const searchedUser = event.target.value;
-    if (TimerOut.current) {
-      clearTimeout(TimerOut.current);
-    }
-    const Timer = setTimeout(() => searchUser(searchedUser), 300);
-    TimerOut.current = parseInt("" + Timer);
-  }
-
-  async function searchUser(searchedUser: string) {
-    if (searchedUser != "") {
-      setUserFound(await searchForUserInSanity(searchedUser));
-    } else {
-      setUserFound([]);
-    }
-  }
 
   return (
     <div id="widgets" className={style.wrapper}>

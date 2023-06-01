@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { BsFillPatchCheckFill } from "react-icons/bs";
-import { getEthereumContract } from "../api/contractfunction";
+import { getEthereumContract } from "../common/contractfunction";
 import CommentComponent from "../components/commentComponent";
 import { Tweet } from "../components/home/Feed";
 import Post from "../components/Post";
